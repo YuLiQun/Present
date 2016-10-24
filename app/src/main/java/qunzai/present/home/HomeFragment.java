@@ -1,4 +1,4 @@
-package qunzai.present.mian;
+package qunzai.present.home;
 
 import android.support.v4.app.Fragment;
 
@@ -8,10 +8,11 @@ import qunzai.present.base.BaseFragment;
 /**
  * Created by dllo on 16/10/21.
  */
-public class HotSaleFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment {
+
     @Override
     protected int getLayout() {
-        return R.layout.fragment_hotsale;
+        return R.layout.fragment_home;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package qunzai.present.mian;
+package qunzai.present.sort;
 
 import android.support.v4.app.Fragment;
 
@@ -8,11 +8,10 @@ import qunzai.present.base.BaseFragment;
 /**
  * Created by dllo on 16/10/21.
  */
-public class HomeFragment extends BaseFragment {
-
+public class SortFragment extends BaseFragment {
     @Override
     protected int getLayout() {
-        return R.layout.fragment_home;
+        return R.layout.fragment_sort;
     }
 
     @Override

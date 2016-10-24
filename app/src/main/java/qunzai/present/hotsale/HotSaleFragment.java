@@ -1,4 +1,4 @@
-package qunzai.present.mian;
+package qunzai.present.hotsale;
 
 import android.support.v4.app.Fragment;
 
@@ -8,10 +8,10 @@ import qunzai.present.base.BaseFragment;
 /**
  * Created by dllo on 16/10/21.
  */
-public class SortFragment extends BaseFragment {
+public class HotSaleFragment extends BaseFragment {
     @Override
     protected int getLayout() {
-        return R.layout.fragment_sort;
+        return R.layout.fragment_hotsale;
     }
 
     @Override

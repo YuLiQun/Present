@@ -3,10 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context=".mian.MainActivity">
 
@@ -26,24 +22,26 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-
+        <!--android:button="@null"   ,,如果是null,,则会R文件丢失-->
+        <!--android:checked="true"   默认显示-->
         <RadioButton
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/rbtn_home"
-            android:button="null"
+            android:button="@null"
             android:text="首页"
             android:gravity="center"
+            android:checked="true"
             android:drawableTop="@drawable/home_change"
             />
 
         <RadioButton
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/rbtn_hotsale"
-            android:button="null"
+            android:button="@null"
             android:text="榜单"
             android:gravity="center"
             android:drawableTop="@drawable/hotsale_change"
@@ -51,10 +49,10 @@
 
         <RadioButton
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/rbtn_sort"
-            android:button="null"
+            android:button="@null"
             android:text="分类"
             android:gravity="center"
             android:drawableTop="@drawable/sort_change"
@@ -62,14 +60,17 @@
 
         <RadioButton
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/rbtn_mine"
-            android:button="null"
+            android:button="@null"
             android:text="个人"
             android:gravity="center"
             android:drawableTop="@drawable/mine_change"
             />
 
     </RadioGroup>
+
+
+
 </LinearLayout>
