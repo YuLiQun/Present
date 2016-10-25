@@ -56,8 +56,8 @@ public abstract class BaseFragment extends Fragment {
         return (T) getView().findViewById(id);
     }
 
-    private <T extends View> T bindView(View view, int id){
-        return (T) getView().findViewById(id);
+    protected <T extends View> T bindView(View view, int id){
+        return (T) view.findViewById(id);
     }
 
     protected void setClickListener(View.OnClickListener clickListener ,View ...views){

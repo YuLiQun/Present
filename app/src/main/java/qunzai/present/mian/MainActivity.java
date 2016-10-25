@@ -32,15 +32,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         rbtnSort = bindView(R.id.rbtn_sort);
         rbtnMine = bindView(R.id.rbtn_mine);
 
-        setClickListener(this, rbtnHome);
-        setClickListener(this, rbtnHotSale);
-        setClickListener(this, rbtnSort);
-        setClickListener(this, rbtnMine);
+        setClickListener(this, rbtnHome,rbtnHotSale,rbtnSort,rbtnMine);
 
 
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.replace(R.id.fl_main, new HotSaleFragment());
+        transaction.replace(R.id.fl_main, new HomeFragment());
         transaction.commit();
 
     }

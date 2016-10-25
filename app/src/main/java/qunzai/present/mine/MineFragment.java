@@ -1,19 +1,27 @@
 package qunzai.present.mine;
 
+import android.content.Intent;
 import android.graphics.Paint;
 import android.support.v4.app.Fragment;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import qunzai.present.R;
 import qunzai.present.base.BaseFragment;
+import qunzai.present.mian.login.LoginActivity;
+import qunzai.present.mian.settimgs.SettingsActivity;
 
 /**
  * Created by dllo on 16/10/21.
  */
 public class MineFragment extends BaseFragment {
 
-    private TextView tvOne;
-    private TextView tvRaiders;
+
+    private RelativeLayout flLanding;
+    private ImageView imgGirl;
+    private ImageView imgSettings;
 
     @Override
     protected int getLayout() {
@@ -22,12 +30,46 @@ public class MineFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        tvOne = (TextView) getView().findViewById(R.id.rbtn_mine_one);
-        tvRaiders = (TextView) getView().findViewById(R.id.rbtn_mine_raiders);
-
+        flLanding = bindView(R.id.fl_mine_landing);
+        imgGirl = bindView(R.id.img_mine_girl);
+        imgSettings = bindView(R.id.img_mine_settings);
+        //点击跳转到登录界面
+        flLandingClivk();
+        imgGirlClick();
+        //点击跳转到设置界面
+        imgSettingsClick();
 
     }
 
+    private void imgSettingsClick() {
+        imgSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void imgGirlClick() {
+        imgGirl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void flLandingClivk() {
+        flLanding.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
 
 
     @Override

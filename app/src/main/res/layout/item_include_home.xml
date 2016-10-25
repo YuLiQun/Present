@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:orientation="horizontal"
+    >
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:text="礼物说"
+        android:textColor="#de385b"
+        android:textSize="25dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"/>
+
+    <Button
+
+        android:layout_width="0dp"
+        android:layout_weight="7"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:background="@drawable/home_include"
+        android:hint="送份走心的好礼送给Ta"/>
+
+    <ImageView
+
+        android:layout_width="0dp"
+        android:layout_weight="3"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/icon_gift_send_remind"
+        android:layout_gravity="center"
+        />
+
+
+
+</LinearLayout>

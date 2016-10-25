@@ -23,6 +23,15 @@
             android:theme="@style/CustomTitle">
 
         </activity>
+        <activity android:name=".mian.login.LoginActivity"
+            android:theme="@style/CustomTitle">
+
+        </activity>
+        <activity android:name=".mian.settimgs.SettingsActivity"
+            android:theme="@style/CustomTitle"
+            >
+
+        </activity>
     </application>
 
 </manifest>

@@ -14,5 +14,11 @@
         <item name="android:windowTitleSize">50dp</item>
     </style>
 
+    <style name="MyTabLayoutTextAppearanceInverse"
+         parent="TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse">
+        <item name="android:textSize">20sp</item>
+
+    </style>
+
 
 </resources>
