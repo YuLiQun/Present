@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@drawable/wheel_shape_one" android:state_enabled="true"> </item>
-    <item android:drawable="@drawable/wheel_shape_two" android:state_enabled="true"> </item>
+    <item android:drawable="@drawable/wheel_shape_found" android:state_enabled="true"> </item>
+    <item android:drawable="@drawable/wheel_shape_back" android:state_enabled="true"> </item>
 
 </selector>

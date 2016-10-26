@@ -9,19 +9,19 @@ import qunzai.present.base.BaseFragment;
 /**
  * Created by dllo on 16/10/25.
  */
-public class HomeRepeatFragment extends BaseFragment {
+public class HRepeatFragment extends BaseFragment {
 
     private static final String Key ="homerepeat";
 
 
 
-    public static HomeRepeatFragment getInstance(int pos){
-        HomeRepeatFragment homeRepeatFragment = new HomeRepeatFragment();
+    public static HRepeatFragment getInstance(int pos){
+        HRepeatFragment hRepeatFragment = new HRepeatFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(Key,pos);
-        homeRepeatFragment.setArguments(bundle);
+        hRepeatFragment.setArguments(bundle);
 
-        return homeRepeatFragment;
+        return hRepeatFragment;
     }
 
     @Override

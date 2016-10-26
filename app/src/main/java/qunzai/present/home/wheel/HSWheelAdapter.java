@@ -1,4 +1,4 @@
-package qunzai.present.home;
+package qunzai.present.home.wheel;
 
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
@@ -16,17 +16,18 @@ import qunzai.present.single.VolleySingleSimple;
 /**
  * Created by dllo on 16/10/25.
  */
-public class HomeSelectionWheelAdapter extends PagerAdapter{
+public class HSWheelAdapter extends PagerAdapter{
 
 
     private List<ImageView> mList;
+    //这个里存的是网址
     ArrayList<String> imgArr;
 
-    public HomeSelectionWheelAdapter(List<ImageView> list) {
+    public HSWheelAdapter(List<ImageView> list) {
         this.mList = list;
     }
 
-    public HomeSelectionWheelAdapter(ArrayList<String> imgArr) {
+    public HSWheelAdapter(ArrayList<String> imgArr) {
         this.imgArr = imgArr;
     }
 

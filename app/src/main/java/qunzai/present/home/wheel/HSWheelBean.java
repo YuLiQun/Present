@@ -1,11 +1,11 @@
-package qunzai.present.home.homeselection;
+package qunzai.present.home.wheel;
 
 import java.util.List;
 
 /**
  * Created by dllo on 16/10/25.
  */
-public class HomeSelectionBean {
+public class HSWheelBean {
 
 
     /**
