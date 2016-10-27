@@ -31,8 +31,10 @@ public class HSWheelAdapter extends PagerAdapter{
         this.imgArr = imgArr;
     }
 
+    //这个方法是决定了有多少页的图片
     @Override
     public int getCount() {
+        //Integer.MAX_VALUE;   一个无限大的数
         return Integer.MAX_VALUE;
     }
 
@@ -48,6 +50,7 @@ public class HSWheelAdapter extends PagerAdapter{
         ImageView imageView = new ImageView(container.getContext());
         imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
         container.addView(imageView);
+        //
         String img = imgArr.get(position % imgArr.size());
         imageView.setImageResource(R.mipmap.ic_launcher);
         VolleySingleSimple.getInstance().getImage(img, imageView);

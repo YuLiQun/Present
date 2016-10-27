@@ -4,12 +4,18 @@
     android:layout_height="match_parent"
     android:layout_marginRight="16dp"
     android:layout_marginLeft="16dp"
+
     >
 
 
     <ImageView
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
+        android:scaleType="fitXY"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
         android:id="@+id/img_home_selection_imageurl"
         android:src="@mipmap/image_default"/>
 
@@ -19,36 +25,85 @@
         android:layout_height="wrap_content"
         android:id="@+id/tv_home_selection_title"
         android:text="llll"
-        android:layout_marginTop="20dp"
-        android:textSize="30dp"/>
+        android:textColor="#342b2a"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="5dp"
+        android:textSize="20dp"/>
 
     <TextView
+        android:layout_marginLeft="16dp"
         android:layout_below="@id/tv_home_selection_title"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:id="@+id/tv_home_selection_sharemsg"
-        android:text="55"/>
+        android:text="55"
+        android:textColor="#837676"/>
+
+
+    <LinearLayout
+        android:layout_below="@id/tv_home_selection_title"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#a9a9a9"
+        android:orientation="vertical"
+        android:id="@+id/ll_home_selection_line"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="47dp">
+
+    </LinearLayout>
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tv_home_selection_likescount"
-        android:layout_below="@id/tv_home_selection_sharemsg"
+        android:layout_below="@id/ll_home_selection_line"
         android:layout_alignParentRight="true"
-        android:text="lll"
-        android:layout_marginTop="20dp"
+        android:text="88"
+        android:textSize="10dp"
+        android:textColor="#837676"
+        android:layout_marginTop="5dp"
         android:layout_marginRight="10dp"/>
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_below="@id/tv_home_selection_sharemsg"
+        android:layout_marginTop="5dp"
+        android:id="@+id/img_home_selection_gone"
         android:layout_toLeftOf="@id/tv_home_selection_likescount"
+        android:layout_below="@id/ll_home_selection_line"
         android:src="@mipmap/ic_action_compact_favourite_normal"
         android:layout_marginRight="5dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="栏目"
+        android:textSize="10dp"
+        android:layout_below="@id/ll_home_selection_line"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="16dp"
+        android:id="@+id/tv_home_selection_wheel_title_title"
+        android:textColor="#837676"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5555"
+        android:textSize="10dp"
+        android:id="@+id/tv_home_selection_columntitle"
+        android:textColor="#342b2a"
+        android:layout_below="@id/ll_home_selection_line"
+        android:layout_marginTop="5dp"
+        android:layout_toRightOf="@id/tv_home_selection_wheel_title_title"
+        android:layout_marginLeft="5dp"
+
+        />
 
 
 

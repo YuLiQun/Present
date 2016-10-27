@@ -47,4 +47,10 @@ public class HRepeatFragment extends BaseFragment {
     protected void initData() {
 
     }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+    }
 }

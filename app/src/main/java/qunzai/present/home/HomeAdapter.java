@@ -24,38 +24,10 @@ import qunzai.present.single.VolleySingleSimple;
 public class HomeAdapter extends FragmentPagerAdapter {
 
     private List<BaseFragment> fragments;
-        private String titles[] = {"精选", "关注", "送女票", "海淘", "科技范", "美食", "送基友",
-            "送爸妈", "送同事", "送宝贝", "设计感", "创意生活", "文艺风", "奇葩搞怪", "数码", "萌萌哒"};
-//    private String url = "http://api.liwushuo.com/v2/channels/preset?gender=2&generation=1";
-//    private int titleSize;
-//    private ArrayList<String> arrayList ;
+    private ArrayList<String> arrayList;
+//    private String titles[] = {"精选", "关注", "送女票", "海淘", "科技范", "美食", "送基友",
+//            "送爸妈", "送同事", "送宝贝", "设计感", "创意生活", "文艺风", "奇葩搞怪", "数码", "萌萌哒"};
 
-
-
-//    GsonRequsest<HomeTitleBean> beenarr = new GsonRequsest<HomeTitleBean>(HomeTitleBean.class,
-//            url, new Response.Listener<HomeTitleBean>() {
-//        @Override
-//        public void onResponse(HomeTitleBean response) {
-//
-//            titleSize = response.getData().getChannels().size();
-//            arrayList = new ArrayList<>();
-//
-//            for (int i = 0; i < titleSize; i++) {
-//                String imgUrl = response.getData().getChannels().get(i).getName();
-//                Log.d("lll", imgUrl);
-//                arrayList.add(imgUrl);
-//
-//
-//            }
-//
-//
-//        }
-//    }, new Response.ErrorListener() {
-//        @Override
-//        public void onErrorResponse(VolleyError error) {
-//
-//        }
-//    });
 
 
 
@@ -63,12 +35,14 @@ public class HomeAdapter extends FragmentPagerAdapter {
         this.fragments = fragments;
     }
 
-    public HomeAdapter(FragmentManager fm) {
+    public HomeAdapter(FragmentManager fm ,ArrayList<String> arrayList) {
         super(fm);
+        this.arrayList = arrayList;
 
-//        VolleySingleSimple.getInstance().addRequest(beenarr);
+
         fragments = new ArrayList<>();
-        for (int i = 0; i < titles.length; i++) {
+        Log.d("zzz", "arrayList.size():" + arrayList.size());
+        for (int i = 0; i < arrayList.size(); i++) {
             if (i == 0) {
                 fragments.add(new HomeSelectionFragment());
             } else {
@@ -77,7 +51,7 @@ public class HomeAdapter extends FragmentPagerAdapter {
 
         }
 
-//        Log.d("lll", "pppppp" + arrayList);
+
 
     }
 
@@ -95,6 +69,6 @@ public class HomeAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
 //        Log.d("lll", "+++" + arrayList.get(position));
-        return titles[position];
+        return arrayList.get(position);
     }
 }
