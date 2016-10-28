@@ -182,7 +182,6 @@ public class HomeSelectionFragment extends BaseFragment {
                 arrayList = new ArrayList<>();
                 for (int i = 0; i < urlSize; i++) {
                     String imgUrl = response.getData().getBanners().get(i).getImage_url();
-                    Log.d("HomeSelectionFragment", imgUrl);
                     arrayList.add(imgUrl);
                 }
 

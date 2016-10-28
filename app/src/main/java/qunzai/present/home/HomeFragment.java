@@ -58,17 +58,18 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onResponse(HomeTitleBean response) {
 
-                int titleSize = response.getData().getChannels().size();
+//                int titleSize = response.getData().getChannels().size();
+//
+//
+//                for (int i = 0; i < titleSize; i++) {
+//                    String titleUrl = response.getData().getChannels().get(i).getName();
+//                    int titleId = response.getData().getChannels().get(i).getId();
+//                    Log.d("zzz", titleUrl);
+//                    arrayList.add(titleId,titleUrl);
+//                    Log.d("zzz", "arrayList:" + arrayList);
+//                }
 
-
-                for (int i = 0; i < titleSize; i++) {
-                    String titleUrl = response.getData().getChannels().get(i).getName();
-                    Log.d("zzz", titleUrl);
-                    arrayList.add(titleUrl);
-                    Log.d("zzz", "arrayList:" + arrayList);
-                }
-
-                HomeAdapter adapter = new HomeAdapter(getChildFragmentManager(),arrayList);
+                HomeAdapter adapter = new HomeAdapter(getChildFragmentManager(),beenarr);
                 vpHome.setAdapter(adapter);
                 tbHome.setupWithViewPager(vpHome);
                 tbHome.setSelectedTabIndicatorColor(Color.RED);//滑动条颜色

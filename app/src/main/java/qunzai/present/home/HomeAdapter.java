@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import qunzai.present.base.BaseFragment;
+import qunzai.present.been.HomeTitleBean;
 import qunzai.present.gson.GsonRequsest;
 import qunzai.present.home.homerepeat.HRepeatFragment;
 import qunzai.present.home.homeselection.HomeSelectionFragment;
@@ -24,7 +25,7 @@ import qunzai.present.single.VolleySingleSimple;
 public class HomeAdapter extends FragmentPagerAdapter {
 
     private List<BaseFragment> fragments;
-    private ArrayList<String> arrayList;
+    private HomeTitleBean arrayList;
 //    private String titles[] = {"精选", "关注", "送女票", "海淘", "科技范", "美食", "送基友",
 //            "送爸妈", "送同事", "送宝贝", "设计感", "创意生活", "文艺风", "奇葩搞怪", "数码", "萌萌哒"};
 
@@ -35,18 +36,18 @@ public class HomeAdapter extends FragmentPagerAdapter {
         this.fragments = fragments;
     }
 
-    public HomeAdapter(FragmentManager fm ,ArrayList<String> arrayList) {
+    public HomeAdapter(FragmentManager fm ,HomeTitleBean arrayList) {
         super(fm);
         this.arrayList = arrayList;
+        int titleSize = arrayList.getData().getChannels().size();
 
-
-        fragments = new ArrayList<>();
-        Log.d("zzz", "arrayList.size():" + arrayList.size());
-        for (int i = 0; i < arrayList.size(); i++) {
+//        fragments = new ArrayList<>();
+        for (int i = 0; i < titleSize; i++) {
+            int titleId = arrayList.getData().getChannels().get(i).getId();
             if (i == 0) {
                 fragments.add(new HomeSelectionFragment());
             } else {
-                fragments.add(HRepeatFragment.getInstance(i));
+                fragments.add(HRepeatFragment.getInstance(i,titleId));
             }
 
         }
@@ -68,7 +69,8 @@ public class HomeAdapter extends FragmentPagerAdapter {
     //设置上面tablayout的标题
     @Override
     public CharSequence getPageTitle(int position) {
-//        Log.d("lll", "+++" + arrayList.get(position));
-        return arrayList.get(position);
+        return arrayList.getData().getChannels().get(position).getName();
     }
+
+
 }
