@@ -75,7 +75,6 @@ public class HSelectionAdapter extends BaseAdapter {
         if (columnBean != null) {
             String column = columnBean.getTitle();
             viewHolder.tvColumnTitle.setText(column);
-
             viewHolder.tvColumnTitle.setVisibility(View.VISIBLE);
             viewHolder.tvColumn.setVisibility(View.VISIBLE);
         } else {

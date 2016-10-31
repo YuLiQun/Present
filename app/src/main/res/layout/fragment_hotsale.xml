@@ -7,7 +7,8 @@
     <android.support.design.widget.TabLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tb_hotsale">
+        android:id="@+id/tb_hotsale"
+        >
 
     </android.support.design.widget.TabLayout>
 

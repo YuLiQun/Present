@@ -50,27 +50,29 @@ public class HomeFragment extends BaseFragment {
 
     private void initGsonTitle() {
         String url = "http://api.liwushuo.com/v2/channels/preset?gender=2&generation=1";
-        final ArrayList<String> arrayList = new ArrayList<>();
-        //滑动条颜色
-//设置可以滑动
+         final ArrayList<String> arrayList = new ArrayList<>();
+         final ArrayList<Integer> arrayListId = new ArrayList<>();
+
         beenarr = new GsonRequsest<HomeTitleBean>(HomeTitleBean.class,
                 url, new Response.Listener<HomeTitleBean>() {
             @Override
             public void onResponse(HomeTitleBean response) {
 
-//                int titleSize = response.getData().getChannels().size();
-//
-//
-//                for (int i = 0; i < titleSize; i++) {
-//                    String titleUrl = response.getData().getChannels().get(i).getName();
-//                    int titleId = response.getData().getChannels().get(i).getId();
-//                    Log.d("zzz", titleUrl);
-//                    arrayList.add(titleId,titleUrl);
-//                    Log.d("zzz", "arrayList:" + arrayList);
-//                }
+                int titleSize = response.getData().getChannels().size();
 
-                HomeAdapter adapter = new HomeAdapter(getChildFragmentManager(),beenarr);
+                for (int i = 0; i < titleSize; i++) {
+                    String titleUrl = response.getData().getChannels().get(i).getName();
+                    int titleId = response.getData().getChannels().get(i).getId();
+
+                    arrayListId.add(titleId);
+                    arrayList.add(titleUrl);
+
+                }
+
+                HomeAdapter adapter = new HomeAdapter(getChildFragmentManager(),arrayList,arrayListId);
+
                 vpHome.setAdapter(adapter);
+
                 tbHome.setupWithViewPager(vpHome);
                 tbHome.setSelectedTabIndicatorColor(Color.RED);//滑动条颜色
                 //设置可以滑动

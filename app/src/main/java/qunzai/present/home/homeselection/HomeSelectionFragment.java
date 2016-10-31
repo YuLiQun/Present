@@ -201,7 +201,9 @@ public class HomeSelectionFragment extends BaseFragment {
                 }
 
                 HSWheelAdapter adapter = new HSWheelAdapter(arrayList);
+
                 vpWheel.setAdapter(adapter);
+
                 //设置监听vp和小点一起懂
                 initAction();
             }
@@ -220,11 +222,9 @@ public class HomeSelectionFragment extends BaseFragment {
     private void initAction() {
         BannerListener bannerListener = new BannerListener();
         vpWheel.addOnPageChangeListener(bannerListener);
-        Log.d("zzz", "imgArrayList:" + arrayList);
         int index = (100 / 2) - (100 / 2 % arrayList.size());
         vpWheel.setCurrentItem(index, false);
         llWheel.getChildAt(pointIndex).setEnabled(true);
-
 
 //        new Thread(new Runnable() {
 //            @Override

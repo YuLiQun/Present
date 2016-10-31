@@ -1,10 +1,14 @@
 package qunzai.present.home.homerepeat;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +18,7 @@ import qunzai.present.base.BaseFragment;
 import qunzai.present.been.HSelectionBean;
 import qunzai.present.been.HomeTitleBean;
 import qunzai.present.gson.GsonRequsest;
+import qunzai.present.home.homeselection.HSelectionAdapter;
 import qunzai.present.single.VolleySingleSimple;
 
 /**
@@ -21,17 +26,18 @@ import qunzai.present.single.VolleySingleSimple;
  */
 public class HRepeatFragment extends BaseFragment {
 
-    private static final String Key ="homerepeat";
+    private static final String Key = "homerepeat";
+    private static final String Id = "homeid";
     private ListView lv;
-    //    private TextView tv;
+    Context context;
 
 
-    public static HRepeatFragment getInstance(int pos ,int id){
+    public static HRepeatFragment getInstance(int pos, ArrayList<Integer> arrayListId) {
         HRepeatFragment hRepeatFragment = new HRepeatFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(Key,pos);
-        bundle.putInt(Key,id);
-        Log.d("zzz", "++pos:" + pos);
+        bundle.putInt(Key, pos);
+        bundle.putIntegerArrayList(Id, arrayListId);
+
         hRepeatFragment.setArguments(bundle);
 
         return hRepeatFragment;
@@ -45,8 +51,6 @@ public class HRepeatFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-
-//        tv = bindView(R.id.tv);
         lv = bindView(R.id.lv_home_repeat);
 
     }
@@ -54,45 +58,60 @@ public class HRepeatFragment extends BaseFragment {
     @Override
     protected void initData() {
 
-        initGsonData();
+
+
 
     }
 
-    private void initGsonData() {
-//        GsonRequsest<HSelectionBean> requsest = new GsonRequsest<HSelectionBean>(HSelectionBean.class,
-//                )
-    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Bundle bundle = getArguments();
         int pos = bundle.getInt(Key);
-//        switch (pos){
-//            case 1:
-//                break;
-//            case 2:
-//                break;
-//            case 3:
-//                break;
-//            case 4:
-//                break;
-//            case 5:
-//                break;
-//            case 6:
-//                break;
-//            case 7:
-//                break;
-//            case 8:
-//                break;
-//            case 9:
-//                break;
-//            case 10:
-//                break;
-//
-//        }
-//        tv.setText(String.valueOf(pos));
+        String url = null;
+        ArrayList<Integer> arrayListId = bundle.getIntegerArrayList(Id);
+        //拼接字符串
+        String frontUrl = "http://api.liwushuo.com/v2/channels/";
+        String backUrl = "/items_v2?gender=2&limit=20&offset=0&generation=1HTTP/1.1";
+        for (int i = 0; i < arrayListId.size(); i++) {
+            //第0个是精选的id,,,所以把第0个去掉,,i+ 1
+            if ((i + 1) == pos) {
+                String idUrl = String.valueOf(arrayListId.get(i + 1));
+                url = frontUrl + idUrl + backUrl;
+            } else {
+                Log.d("HRepeatFragment", "网络不给力");
+            }
 
 
+        }
+
+        GsonRequsest<HSelectionBean> requsest = new GsonRequsest<HSelectionBean>(HSelectionBean.class,
+                url, new Response.Listener<HSelectionBean>() {
+
+            @Override
+            public void onResponse(HSelectionBean response) {
+
+                //这个adapter和Bean类用的是精选的adapter和bean类
+                HSelectionAdapter adapter = new HSelectionAdapter(context);
+                adapter.setArrayList(response);
+                lv.setAdapter(adapter);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        VolleySingleSimple.getInstance().addRequest(requsest);
+
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
     }
 }

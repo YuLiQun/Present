@@ -1,25 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#f7f6f4"
+    >
 
 
-    <!--<TextView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:id="@+id/tv_hot_repeat"/>-->
-
-    <ImageView
+    <com.bartoszlipinski.recyclerviewheader.RecyclerViewHeader
+        android:id="@+id/rvheader_hot_repeat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/img_hot_repeat_titleimg"
-        android:src="@mipmap/ic_launcher"/>
+        >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:id="@+id/img_hot_repeat_header"
+            android:src="@mipmap/ic_launcher"
+            android:scaleType="fitXY"/>
+
+    </com.bartoszlipinski.recyclerviewheader.RecyclerViewHeader>
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_hot_repeat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/rv_hot_repeat">
 
+        >
+
+        <!--android:background="#f7f6f4"-->
     </android.support.v7.widget.RecyclerView>
 
-</LinearLayout>
+</RelativeLayout>
