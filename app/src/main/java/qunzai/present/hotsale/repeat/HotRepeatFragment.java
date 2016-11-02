@@ -8,6 +8,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.Response;
@@ -35,6 +36,7 @@ public class HotRepeatFragment extends BaseFragment {
     Context context;
     private RecyclerViewHeader rvHeader;
     private RecyclerViewHeader header;
+    private ListView lv;
 
     public static HotRepeatFragment getInstance(int pos , ArrayList<Integer> arrayListId){
         HotRepeatFragment hotRepeatFragment = new HotRepeatFragment();
@@ -60,6 +62,8 @@ public class HotRepeatFragment extends BaseFragment {
         rvHeader = bindView(R.id.rvheader_hot_repeat);
 //        header = RecyclerViewHeader.fromXml(context, R.layout.item_rv_header);
         imgTit = bindView(rvHeader,R.id.img_hot_repeat_header);
+
+
 
 
 
