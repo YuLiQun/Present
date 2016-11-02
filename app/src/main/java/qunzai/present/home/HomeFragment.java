@@ -74,7 +74,7 @@ public class HomeFragment extends BaseFragment {
                 vpHome.setAdapter(adapter);
 
                 tbHome.setupWithViewPager(vpHome);
-                tbHome.setSelectedTabIndicatorColor(Color.RED);//滑动条颜色
+//                tbHome.setSelectedTabIndicatorColor(Color.RED);//滑动条颜色
                 //设置可以滑动
                 tbHome.setTabMode(TabLayout.MODE_SCROLLABLE);
 

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="100dp"
+    android:layout_height="58dp">
+
+    <TextView
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_sort_one_end"
+        android:textColor="#ff3c58"
+        android:text="点击查看全部"
+        android:background="@drawable/sort_raiders_end"
+        />
+
+</RelativeLayout>

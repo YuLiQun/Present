@@ -1,11 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="300dp"
+    android:layout_height="wrap_content">
 
     <ImageView
+        android:layout_width="100dp"
+        android:layout_height="58dp"
+        android:scaleType="fitXY"
+        android:id="@+id/img_sort_one_header"
+        android:src="@mipmap/image_default"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentLeft="true"/>
+
+
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/img_sort_one_header"/>
+        android:id="@+id/tv_sort_one_header_title"
+        android:layout_marginTop="10dp"
+        android:textColor="#342b2a"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/img_sort_one_header"
+        android:text="llllhfjkld;d'sd"/>
 
-</LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:id="@+id/tv_sort_one_header_author"
+        android:textColor="#837676"
+        android:textSize="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@id/tv_sort_one_header_title"
+        android:layout_toRightOf="@id/img_sort_one_header"
+        android:text="一个"
+        />
+
+</RelativeLayout>

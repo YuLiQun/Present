@@ -60,14 +60,16 @@ public class HotRepeatAdapter extends RecyclerView.Adapter<HotRepeatAdapter.MyVi
 
 
 //        holder.rlBack.setBackgroundResource(R.drawable.hotsale_coverimg_back);
-        holder.tvTop.setTextColor(Color.WHITE);
+
         if (position < 3){
 //            holder.tvTop.setBackgroundColor(0xFFFF3C58);
             holder.tvTop.setBackgroundResource(R.drawable.hotsale_top_back);
+            holder.tvTop.setTextColor(Color.WHITE);
         }
         else {
 //            holder.tvTop.setBackgroundColor(0xFFFFE1E3);
             holder.tvTop.setBackgroundResource(R.drawable.hotsale_top_background);
+            holder.tvTop.setTextColor(0xFFFF3C58);
         }
 
     }
