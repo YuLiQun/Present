@@ -1,26 +1,16 @@
 package qunzai.present.home;
 
-import android.content.Context;
-import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.util.Log;
 import android.util.SparseArray;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-
 import java.util.ArrayList;
-import java.util.List;
 
 import qunzai.present.base.BaseFragment;
-import qunzai.present.been.HomeTitleBean;
-import qunzai.present.gson.GsonRequsest;
 import qunzai.present.home.homerepeat.HRepeatFragment;
-import qunzai.present.home.homeselection.HomeSelectionFragment;
-import qunzai.present.hotsale.repeat.HotRepeatFragment;
-import qunzai.present.single.VolleySingleSimple;
+import qunzai.present.home.homeselection.HSelectionFragment;
 
 /**
  * Created by dllo on 16/10/25.
@@ -35,10 +25,6 @@ public class HomeAdapter extends FragmentPagerAdapter {
 //            "送爸妈", "送同事", "送宝贝", "设计感", "创意生活", "文艺风", "奇葩搞怪", "数码", "萌萌哒"};
 
 
-    public void setFragments(SparseArray<BaseFragment> fragments) {
-        this.fragments = fragments;
-    }
-
     public HomeAdapter(FragmentManager fm, ArrayList<String> arrayList, ArrayList<Integer> arrayListId) {
         super(fm);
         this.arrayList = arrayList;
@@ -48,7 +34,7 @@ public class HomeAdapter extends FragmentPagerAdapter {
 //            int id = arrayListId.get(i);
 //
 //            if (i == 0) {
-//                fragments.put(i,new HomeSelectionFragment());
+//                fragments.put(i,new HSelectionFragment());
 //            } else {
 //
 //                fragments.put(i,HRepeatFragment.getInstance(i,arrayListId));
@@ -63,7 +49,7 @@ public class HomeAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
 
         if (position == 0) {
-            fragments.put(position, new HomeSelectionFragment());
+            fragments.put(position, new HSelectionFragment());
 
         } else {
             if (fragments.get(position) == null) {

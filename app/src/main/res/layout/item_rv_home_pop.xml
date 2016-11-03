@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+
+    android:layout_height="wrap_content">
+
+
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="41dp"
+            android:id="@+id/rbtn_home_pop"
+            android:button="@null"
+            android:text="llll"
+            android:gravity="center"
+            android:background="@drawable/mine_underline" />
+
+
+
+
+</RadioGroup>

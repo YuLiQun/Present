@@ -1,17 +1,14 @@
 package qunzai.present.mine;
 
 import android.content.Intent;
-import android.graphics.Paint;
-import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import qunzai.present.R;
 import qunzai.present.base.BaseFragment;
-import qunzai.present.mian.login.LoginActivity;
-import qunzai.present.mian.settimgs.SettingsActivity;
+import qunzai.present.main.login.LoginActivity;
+import qunzai.present.main.settimgs.SettingsActivity;
 
 /**
  * Created by dllo on 16/10/21.
@@ -34,7 +31,7 @@ public class MineFragment extends BaseFragment {
         imgGirl = bindView(R.id.img_mine_girl);
         imgSettings = bindView(R.id.img_mine_settings);
         //点击跳转到登录界面
-        flLandingClivk();
+        flLandingClick();
         imgGirlClick();
         //点击跳转到设置界面
         imgSettingsClick();
@@ -61,7 +58,7 @@ public class MineFragment extends BaseFragment {
         });
     }
 
-    private void flLandingClivk() {
+    private void flLandingClick() {
         flLanding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

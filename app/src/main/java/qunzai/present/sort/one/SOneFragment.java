@@ -1,49 +1,41 @@
 package qunzai.present.sort.one;
 
-import android.content.Context;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.GridView;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
-
-
 import qunzai.present.R;
 import qunzai.present.base.BaseFragment;
-import qunzai.present.been.SOneBean;
-import qunzai.present.been.SOneHeaderBean;
-import qunzai.present.gson.GsonRequsest;
-import qunzai.present.single.VolleySingleSimple;
+import qunzai.present.been.SRaidersBean;
+import qunzai.present.internet.GsonRequest;
+import qunzai.present.internet.VolleySingleSimple;
+import qunzai.present.sort.one.orlr.SOneLeftAdapter;
+import qunzai.present.sort.one.orlr.SOneRightAdapter;
+import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
 
 /**
  * Created by dllo on 16/10/31.
  */
 public class SOneFragment extends BaseFragment {
 
-    private RecyclerView rv;
-    Context context;
     private ListView lv;
+    private StickyListHeadersListView sLv;
+    private SOneLeftAdapter leftAdapter;
+
 
     @Override
     protected int getLayout() {
-        return R.layout.fragment_sort_one;
+        return R.layout.fragment_sort_raiders;
     }
 
     @Override
     protected void initView() {
-
-
-        lv = bindView(R.id.lv_sort_one);
-        View view = LayoutInflater.from(context).inflate(R.layout.item_lv_header, null);
-        rv = bindView(view,R.id.rv_sort_one_header);
-        lv.addHeaderView(view);
+        lv = bindView(R.id.lv_sort_raiders);
+        sLv = bindView(R.id.slv_sort_raiders);
 
 
 
@@ -52,26 +44,72 @@ public class SOneFragment extends BaseFragment {
     @Override
     protected void initData() {
 
-        initrvGsonData();
+        initGsonLeft();
+        leftAdapter = new SOneLeftAdapter();
+        lv.setAdapter(leftAdapter);
 
-        initHeaderGson();
+
+        //listView点击
+        lvClick();
+        //StickyListHeadersListView  滑动事件
+        sLvScrollClick();
+
+
 
 
     }
 
-    private void initHeaderGson() {
-        String url = "http://api.liwushuo.com/v2/columns?limit=20&offset=0";
-        GsonRequsest<SOneHeaderBean> requsest = new GsonRequsest<SOneHeaderBean>(SOneHeaderBean.class,
-                url, new Response.Listener<SOneHeaderBean>() {
+    private void sLvScrollClick() {
+        sLv.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
-            public void onResponse(SOneHeaderBean response) {
-                SOneHeaderAdapter adapter = new SOneHeaderAdapter();
-                adapter.setsOneHeaderBean(response);
-                rv.setAdapter(adapter);
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+                lv.smoothScrollToPositionFromTop(firstVisibleItem,0);
+                //获取滑动的标题的position,,从而改变颜色
+                leftAdapter.setSelectdPos(firstVisibleItem);
+            }
+        });
+    }
+
+    private void lvClick() {
 
 
-                GridLayoutManager manager = new GridLayoutManager(context,3,LinearLayoutManager.HORIZONTAL,false);
-                rv.setLayoutManager(manager);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                sLv.setSelection(position);
+                //获取点击的标题的position,,从而改变颜色
+                leftAdapter.setSelectdPos(position);
+            }
+        });
+    }
+
+    private void initGsonLeft() {
+        String url = "http://api.liwushuo.com/v2/item_categories/tree";
+        GsonRequest<SRaidersBean> requsest = new GsonRequest<SRaidersBean>(SRaidersBean.class,
+                url, new Response.Listener<SRaidersBean>() {
+            @Override
+            public void onResponse(SRaidersBean response) {
+
+
+                leftAdapter.setsRaidersBean(response);
+
+
+                int size  = response.getData().getCategories().size();
+                for (int i = 0; i < size; i++) {
+
+                }
+                SOneRightAdapter rightAdapter = new SOneRightAdapter();
+                rightAdapter.setsRaidersBean(response);
+                sLv.setAdapter(rightAdapter);
+
+
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -81,34 +119,5 @@ public class SOneFragment extends BaseFragment {
         });
 
         VolleySingleSimple.getInstance().addRequest(requsest);
-    }
-
-    private void initrvGsonData() {
-        String url = "http://api.liwushuo.com/v2/channel_groups/all";
-        GsonRequsest<SOneBean> requsest = new GsonRequsest<SOneBean>(SOneBean.class,
-                url, new Response.Listener<SOneBean>() {
-            @Override
-            public void onResponse(SOneBean response) {
-                Log.d("aaa", "response:" + response);
-                SOneAdapter adapter = new SOneAdapter();
-                adapter.setsOneBean(response);
-                lv.setAdapter(adapter);
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        });
-
-        VolleySingleSimple.getInstance().addRequest(requsest);
-    }
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        this.context = context;
     }
 }

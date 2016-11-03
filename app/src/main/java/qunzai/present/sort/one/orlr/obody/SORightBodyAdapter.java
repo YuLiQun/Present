@@ -1,4 +1,4 @@
-package qunzai.present.sort.raiders.srlr.rbody;
+package qunzai.present.sort.one.orlr.obody;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import qunzai.present.R;
 import qunzai.present.base.CommonViewHolder;
 import qunzai.present.been.SRaidersBean;
-import qunzai.present.single.VolleySingleSimple;
+import qunzai.present.internet.VolleySingleSimple;
 
 /**
  * Created by dllo on 16/11/2.
  */
-public class SRRightBodyAdapter extends RecyclerView.Adapter<CommonViewHolder> {
+public class SORightBodyAdapter extends RecyclerView.Adapter<CommonViewHolder> {
 
     ArrayList<SRaidersBean.DataBean.CategoriesBean.SubcategoriesBean> arrayList;
 
@@ -35,14 +35,14 @@ public class SRRightBodyAdapter extends RecyclerView.Adapter<CommonViewHolder> {
     @Override
     public void onBindViewHolder(CommonViewHolder holder, int position) {
 
-        for (int i = 0; i < arrayList.size(); i++) {
-            SRaidersBean.DataBean.CategoriesBean.SubcategoriesBean sub = arrayList.get(i);
+        SRaidersBean.DataBean.CategoriesBean.SubcategoriesBean sub = arrayList.get(position);
+
 
             String imgUrl = sub.getIcon_url();
             String name  = sub.getName();
             holder.setText(R.id.tv_sort_raiders_right_body_name,name);
             VolleySingleSimple.getInstance().getImage(imgUrl, (ImageView) holder.getView(R.id.img_sort_raiders_right_body_icon));
-        }
+
 
     }
 

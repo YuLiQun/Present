@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import qunzai.present.R;
 import qunzai.present.base.BaseFragment;
 import qunzai.present.been.HotSaleTitleBean;
-import qunzai.present.gson.GsonRequsest;
-import qunzai.present.single.VolleySingleSimple;
+import qunzai.present.internet.GsonRequest;
+import qunzai.present.internet.VolleySingleSimple;
 
 /**
  * Created by dllo on 16/10/21.
@@ -54,7 +54,7 @@ public class HotSaleFragment extends BaseFragment {
     }
 
     private void initGsonData() {
-         GsonRequsest<HotSaleTitleBean> requsest = new GsonRequsest<HotSaleTitleBean>(HotSaleTitleBean.class,
+         GsonRequest<HotSaleTitleBean> requsest = new GsonRequest<HotSaleTitleBean>(HotSaleTitleBean.class,
                 url, new Response.Listener<HotSaleTitleBean>() {
             @Override
             public void onResponse(HotSaleTitleBean response) {

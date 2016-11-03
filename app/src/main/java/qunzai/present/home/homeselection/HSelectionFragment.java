@@ -7,7 +7,6 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,15 +22,15 @@ import java.util.ArrayList;
 import qunzai.present.R;
 import qunzai.present.base.BaseFragment;
 import qunzai.present.been.HSelectionBean;
-import qunzai.present.gson.GsonRequsest;
+import qunzai.present.internet.GsonRequest;
 import qunzai.present.home.wheel.HSWheelAdapter;
 import qunzai.present.been.HSWheelBean;
-import qunzai.present.single.VolleySingleSimple;
+import qunzai.present.internet.VolleySingleSimple;
 
 /**
  * Created by dllo on 16/10/25.
  */
-public class HomeSelectionFragment extends BaseFragment {
+public class HSelectionFragment extends BaseFragment {
 
     private ListView lv;
     String wheelUrl = "http://api.liwushuo.com/v2/banners";
@@ -47,8 +46,8 @@ public class HomeSelectionFragment extends BaseFragment {
 
 
     private Handler mHandler;
-    private GsonRequsest<HSWheelBean> gsonRequsest;
-    private GsonRequsest<HSelectionBean> lvRequsest;
+    private GsonRequest<HSWheelBean> gsonRequsest;
+    private GsonRequest<HSelectionBean> lvRequsest;
     private ArrayList<HSelectionBean> lvBeenArrayList;
     String url = "http://api.liwushuo.com/v2/channels/100/items_v2?ad=2&gender=1&generation=1&limit=20&offset=0";
 
@@ -118,7 +117,7 @@ public class HomeSelectionFragment extends BaseFragment {
 
     private void initUrlData() {
 
-        lvRequsest = new GsonRequsest<HSelectionBean>(HSelectionBean.class,
+        lvRequsest = new GsonRequest<HSelectionBean>(HSelectionBean.class,
                 url, new Response.Listener<HSelectionBean>() {
 
 
@@ -174,7 +173,7 @@ public class HomeSelectionFragment extends BaseFragment {
 
         //轮播点的半径
 //设置监听vp和小点一起懂
-        gsonRequsest = new GsonRequsest<HSWheelBean>(
+        gsonRequsest = new GsonRequest<HSWheelBean>(
                 HSWheelBean.class, wheelUrl, new Response.Listener<HSWheelBean>() {
             @Override
             public void onResponse(HSWheelBean response) {

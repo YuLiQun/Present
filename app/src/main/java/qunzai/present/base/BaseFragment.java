@@ -14,14 +14,14 @@ import qunzai.present.R;
  * Created by dllo on 16/10/21.
  */
 public abstract class BaseFragment extends Fragment {
-//    protected Context mContext;
+    protected Context mContext;
 
 //    //这个方法是与Activity关联的时候掉用
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        mContext = context;
-//    }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mContext = context;
+    }
 
     @Nullable
     @Override
@@ -45,6 +45,8 @@ public abstract class BaseFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         initData();
     }
+
+
 
     protected abstract int getLayout();
 

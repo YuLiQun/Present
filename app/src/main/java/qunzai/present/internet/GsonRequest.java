@@ -1,4 +1,4 @@
-package qunzai.present.gson;
+package qunzai.present.internet;
 
 /**
  * Created by dllo on 16/10/24.
@@ -10,12 +10,11 @@ import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.HttpHeaderParser;
-import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 
 import java.io.UnsupportedEncodingException;
 
-public class GsonRequsest<T> extends Request<T>{
+public class GsonRequest<T> extends Request<T>{
     //导包  com.google.code.gson:gson:2.7
     //1.
     private final Response.Listener<T> mListener;
@@ -25,11 +24,11 @@ public class GsonRequsest<T> extends Request<T>{
 
 
     //在构造的方法里加一个listener,,,,修改
-    public GsonRequsest(int method,
-                        Class<T> mClass,//用于Gson解析的,,数据类的类型,,这个class和上面的不是同一个
-                        String url,
-                        Response.Listener<T> mListener,//后添加的
-                        Response.ErrorListener listener) {
+    public GsonRequest(int method,
+                       Class<T> mClass,//用于Gson解析的,,数据类的类型,,这个class和上面的不是同一个
+                       String url,
+                       Response.Listener<T> mListener,//后添加的
+                       Response.ErrorListener listener) {
         super(method, url, listener);
         //对成功的监听进行赋值
         this.mListener = mListener;
@@ -40,7 +39,7 @@ public class GsonRequsest<T> extends Request<T>{
 
     //
 
-    public GsonRequsest(
+    public GsonRequest(
                         Class<T> mClass,//用于Gson解析的,,数据类的类型,,这个class和上面的不是同一个
                         String url,
                         Response.Listener<T> mListener,//后添加的

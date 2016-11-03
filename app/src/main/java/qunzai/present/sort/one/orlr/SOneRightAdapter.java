@@ -1,26 +1,23 @@
-package qunzai.present.sort.raiders.srlr;
+package qunzai.present.sort.one.orlr;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
-
-import com.bartoszlipinski.recyclerviewheader.RecyclerViewHeader;
 
 import java.util.ArrayList;
 
 import qunzai.present.R;
 import qunzai.present.base.CommonViewHolder;
 import qunzai.present.been.SRaidersBean;
-import qunzai.present.sort.raiders.srlr.rbody.SRRightBodyAdapter;
+import qunzai.present.sort.one.orlr.obody.SORightBodyAdapter;
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
 
 /**
  * Created by dllo on 16/11/2.
  */
-public class SRaidersRightAdapter extends BaseAdapter implements StickyListHeadersAdapter {
+public class SOneRightAdapter extends BaseAdapter implements StickyListHeadersAdapter {
 
     private SRaidersBean sRaidersBean;
 
@@ -30,12 +27,13 @@ public class SRaidersRightAdapter extends BaseAdapter implements StickyListHeade
     }
 
 
+    //这个是head的
     @Override
     public View getHeaderView(int position, View convertView, ViewGroup parent) {
-        CommonViewHolder viewHolder = CommonViewHolder.getViewHolder(convertView,parent,R.layout.item_slv_right_head);
+        CommonViewHolder viewHolder = CommonViewHolder.getViewHolder(convertView, parent, R.layout.item_slv_right_head);
         SRaidersBean.DataBean.CategoriesBean categoriesBean = sRaidersBean.getData().getCategories().get(position);
         String name = categoriesBean.getName();
-        viewHolder.setText(R.id.tv_sort_raiders_right,name);
+        viewHolder.setText(R.id.tv_sort_raiders_right, name);
         return viewHolder.getItemView();
     }
 
@@ -53,13 +51,9 @@ public class SRaidersRightAdapter extends BaseAdapter implements StickyListHeade
 
     @Override
     public Object getItem(int position) {
-//        SRaidersBean.DataBean.CategoriesBean categoriesBean
-//                = sRaidersBean.getData().getCategories().get(position);
-//        for (int i = 0; i < ; i++) {
-//           SRaidersBean.DataBean.CategoriesBean.SubcategoriesBean  subcategoriesBean ;
-//
-//        }
-////        return bodyList.get(position);
+
+//        return bodyList.get(position);
+
         return sRaidersBean.getData().getCategories().get(position);
     }
 
@@ -68,10 +62,11 @@ public class SRaidersRightAdapter extends BaseAdapter implements StickyListHeade
         return position;
     }
 
+
+    //这个是body的
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        //TODO 布局不好,,未完待续
         CommonViewHolder viewHolder = CommonViewHolder.getViewHolder(convertView, parent, R.layout.item_slv_right_body);
 
         //注意这里的写法viewHolder.getItemView().
@@ -85,12 +80,12 @@ public class SRaidersRightAdapter extends BaseAdapter implements StickyListHeade
                     categoriesBean.getSubcategories().get(i);
             arrayList.add(subcategoriesBean);
         }
-        SRRightBodyAdapter adapter = new SRRightBodyAdapter();
+
+        SORightBodyAdapter adapter = new SORightBodyAdapter();
         adapter.setArrayList(arrayList);
         rv.setAdapter(adapter);
         GridLayoutManager manager = new GridLayoutManager(parent.getContext(), 3, GridLayoutManager.VERTICAL, false);
         rv.setLayoutManager(manager);
-
 
 
         return viewHolder.getItemView();

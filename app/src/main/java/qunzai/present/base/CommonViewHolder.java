@@ -7,9 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
-import qunzai.present.R;
+import qunzai.present.internet.VolleySingleSimple;
 
 /**
  * Created by dllo on 16/11/1.
@@ -83,6 +84,22 @@ public class CommonViewHolder extends RecyclerView.ViewHolder {
         return this;
     }
 
+//    public CommonViewHolder setRBtnText(int id, String text){
+//        RadioButton textView = getView(id);
+//        textView.setText(text);
+//        //返回的是当前使用的对象
+//        return this;
+//    }
+
+    public RadioButton setRBtnText(int id, String text){
+        RadioButton textView = getView(id);
+        textView.setText(text);
+        //返回的是当前使用的对象
+        return textView;
+    }
+
+
+
     public CommonViewHolder setImage(int id, int imgId){
         ImageView imageView = getView(id);
         imageView.setImageResource(imgId);
@@ -91,6 +108,7 @@ public class CommonViewHolder extends RecyclerView.ViewHolder {
 
     public CommonViewHolder setImage (int id ,String url){
         ImageView imageView = getView(id);
+        VolleySingleSimple.getInstance().getImage(url,imageView);
         return this;
     }
 
@@ -109,6 +127,14 @@ public class CommonViewHolder extends RecyclerView.ViewHolder {
     }
 
 
+    //设置文字颜色
+    public void setTextColor(int id, int color) {
+        TextView textView = getView(id);
+        textView.setTextColor(color);
+    }
 
-
+    public void setBackgroundColor(int id , int color) {
+        View view = getView(id);
+        view.setBackgroundColor(color);
+    }
 }

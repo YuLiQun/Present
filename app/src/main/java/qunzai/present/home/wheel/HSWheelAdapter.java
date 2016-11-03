@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import qunzai.present.R;
-import qunzai.present.single.VolleySingleSimple;
+import qunzai.present.internet.VolleySingleSimple;
 
 /**
  * Created by dllo on 16/10/25.

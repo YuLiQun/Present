@@ -1,4 +1,4 @@
-package qunzai.present.mian;
+package qunzai.present.main;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;

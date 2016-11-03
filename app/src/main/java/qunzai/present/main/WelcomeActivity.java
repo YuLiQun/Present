@@ -1,17 +1,14 @@
-package qunzai.present.mian;
+package qunzai.present.main;
 
 import android.content.Intent;
-import android.view.View;
 import android.widget.ImageView;
 
-import java.sql.Time;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import qunzai.present.R;
 import qunzai.present.base.BaseActivity;
-import qunzai.present.gson.GsonRequsest;
-import qunzai.present.single.VolleySingleSimple;
+import qunzai.present.internet.VolleySingleSimple;
 
 /**
  * Created by dllo on 16/10/24.

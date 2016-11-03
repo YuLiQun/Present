@@ -1,4 +1,4 @@
-package qunzai.present.mian.settimgs;
+package qunzai.present.main.login;
 
 import qunzai.present.R;
 import qunzai.present.base.BaseActivity;
@@ -6,10 +6,10 @@ import qunzai.present.base.BaseActivity;
 /**
  * Created by dllo on 16/10/25.
  */
-public class SettingsActivity extends BaseActivity{
+public class LoginActivity extends BaseActivity{
     @Override
     protected int getLayout() {
-        return R.layout.activity_settings;
+        return R.layout.activity_login;
     }
 
     @Override

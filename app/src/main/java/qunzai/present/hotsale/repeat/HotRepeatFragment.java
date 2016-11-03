@@ -1,12 +1,10 @@
 package qunzai.present.hotsale.repeat;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,8 +18,8 @@ import java.util.ArrayList;
 import qunzai.present.R;
 import qunzai.present.base.BaseFragment;
 import qunzai.present.been.HotSaleRepeatBean;
-import qunzai.present.gson.GsonRequsest;
-import qunzai.present.single.VolleySingleSimple;
+import qunzai.present.internet.GsonRequest;
+import qunzai.present.internet.VolleySingleSimple;
 
 /**
  * Created by dllo on 16/10/25.
@@ -29,20 +27,19 @@ import qunzai.present.single.VolleySingleSimple;
 public class HotRepeatFragment extends BaseFragment {
 
     private TextView tv;
-    private static final String key = "hotsale";//省去key值,,pos位置
-    private static final String Id = "hotid";
+    private static final String KEY = "hotsale";//省去key值,,pos位置
+    private static final String ID = "hotid";
     private ImageView imgTit;
     private RecyclerView rv;
-    Context context;
+    private Context context;
     private RecyclerViewHeader rvHeader;
-    private RecyclerViewHeader header;
     private ListView lv;
 
     public static HotRepeatFragment getInstance(int pos , ArrayList<Integer> arrayListId){
         HotRepeatFragment hotRepeatFragment = new HotRepeatFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(key,pos);
-        bundle.putIntegerArrayList(Id,arrayListId);
+        bundle.putInt(KEY,pos);
+        bundle.putIntegerArrayList(ID,arrayListId);
         hotRepeatFragment.setArguments(bundle);
 
         return hotRepeatFragment;
@@ -82,8 +79,8 @@ public class HotRepeatFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Bundle bundle = getArguments();
-        int pos = bundle.getInt(key);
-        ArrayList<Integer> arrayListId = bundle.getIntegerArrayList(Id);
+        int pos = bundle.getInt(KEY);
+        ArrayList<Integer> arrayListId = bundle.getIntegerArrayList(ID);
         String fromdUrl = "http://api.liwushuo.com/v2/ranks_v2/ranks/";
         String backUrl = "?limit=20&offset=0HTTP/1.1";
         String url = null;
@@ -98,7 +95,7 @@ public class HotRepeatFragment extends BaseFragment {
 
         }
 
-        final GsonRequsest<HotSaleRepeatBean>  requsest  = new GsonRequsest<HotSaleRepeatBean>(HotSaleRepeatBean.class,
+        final GsonRequest<HotSaleRepeatBean> requsest  = new GsonRequest<HotSaleRepeatBean>(HotSaleRepeatBean.class,
                 url, new Response.Listener<HotSaleRepeatBean>() {
             @Override
             public void onResponse(HotSaleRepeatBean response) {

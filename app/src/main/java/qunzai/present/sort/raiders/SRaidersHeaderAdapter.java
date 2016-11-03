@@ -1,23 +1,18 @@
-package qunzai.present.sort.one;
+package qunzai.present.sort.raiders;
 
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-
-import java.util.ArrayList;
 
 import qunzai.present.R;
 import qunzai.present.base.CommonViewHolder;
 import qunzai.present.been.SOneHeaderBean;
-import qunzai.present.single.VolleySingleSimple;
 
 
 /**
  * Created by dllo on 16/11/1.
  */
-public class SOneHeaderAdapter extends RecyclerView.Adapter<CommonViewHolder>{
+public class SRaidersHeaderAdapter extends RecyclerView.Adapter<CommonViewHolder> {
 
     private SOneHeaderBean sOneHeaderBean;
     private static final int TYPE = 1;
@@ -26,16 +21,17 @@ public class SOneHeaderAdapter extends RecyclerView.Adapter<CommonViewHolder>{
 
     public void setsOneHeaderBean(SOneHeaderBean sOneHeaderBean) {
         this.sOneHeaderBean = sOneHeaderBean;
+        notifyDataSetChanged();
     }
 
     @Override
     public CommonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        switch (viewType){
+        switch (viewType) {
             case TYPE://当ttype = 1 的时候的布局
-                CommonViewHolder viewHolder = CommonViewHolder.getViewHolder(parent,R.layout.item_rv_sort_one);
+                CommonViewHolder viewHolder = CommonViewHolder.getViewHolder(parent, R.layout.item_rv_sort_one);
                 return viewHolder;
             case TYPE_END://当type = 2 的时候的布局
-                CommonViewHolder viewHolderEnd = CommonViewHolder.getViewHolder(parent,R.layout.item_rv_sort_end);
+                CommonViewHolder viewHolderEnd = CommonViewHolder.getViewHolder(parent, R.layout.item_rv_sort_end);
                 return viewHolderEnd;
         }
 
@@ -46,8 +42,8 @@ public class SOneHeaderAdapter extends RecyclerView.Adapter<CommonViewHolder>{
     @Override
     public int getItemViewType(int position) {
         // 判断,,如果小于11,,就返回1,,否则,,返回2
-        if (position < 11) return TYPE;
-        else return TYPE_END;
+        if (position < 11) {return TYPE;}
+        else {return TYPE_END;}
     }
 
     @Override
@@ -59,19 +55,14 @@ public class SOneHeaderAdapter extends RecyclerView.Adapter<CommonViewHolder>{
             String url = columnsBean.getBanner_image_url();
             String title = columnsBean.getTitle();
             String author = columnsBean.getAuthor();
-            holder.setText(R.id.tv_sort_one_header_title, title);
-            holder.setText(R.id.tv_sort_one_header_author, author);
-            VolleySingleSimple.getInstance().getImage(url, (ImageView) holder.getView(R.id.img_sort_one_header));
+            holder.setText(R.id.tv_sort_one_header_title, title)
+                    .setText(R.id.tv_sort_one_header_author, author)
+                    .setImage(R.id.img_sort_one_header, url);
         }
 
 //        }else {
 //            holder.setText(R.id.)
 //        }
-
-
-
-
-
 
 
     }
@@ -83,9 +74,6 @@ public class SOneHeaderAdapter extends RecyclerView.Adapter<CommonViewHolder>{
 //        return sOneHeaderBean == null ? 0 :sOneHeaderBean.getData().getColumns().size();
         return 12;
     }
-
-
-
 
 
 }

@@ -5,29 +5,26 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import qunzai.present.R;
 import qunzai.present.base.BaseFragment;
 import qunzai.present.been.HSelectionBean;
-import qunzai.present.been.HomeTitleBean;
-import qunzai.present.gson.GsonRequsest;
+import qunzai.present.internet.GsonRequest;
 import qunzai.present.home.homeselection.HSelectionAdapter;
-import qunzai.present.single.VolleySingleSimple;
+import qunzai.present.internet.VolleySingleSimple;
 
 /**
  * Created by dllo on 16/10/25.
  */
 public class HRepeatFragment extends BaseFragment {
 
-    private static final String Key = "homerepeat";
-    private static final String Id = "homeid";
+    private static final String KEY = "homerepeat";
+    private static final String ID = "homeid";
     private ListView lv;
     Context context;
 
@@ -35,8 +32,8 @@ public class HRepeatFragment extends BaseFragment {
     public static HRepeatFragment getInstance(int pos, ArrayList<Integer> arrayListId) {
         HRepeatFragment hRepeatFragment = new HRepeatFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(Key, pos);
-        bundle.putIntegerArrayList(Id, arrayListId);
+        bundle.putInt(KEY, pos);
+        bundle.putIntegerArrayList(ID, arrayListId);
 
         hRepeatFragment.setArguments(bundle);
 
@@ -68,9 +65,9 @@ public class HRepeatFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Bundle bundle = getArguments();
-        int pos = bundle.getInt(Key);
+        int pos = bundle.getInt(KEY);
         String url = null;
-        ArrayList<Integer> arrayListId = bundle.getIntegerArrayList(Id);
+        ArrayList<Integer> arrayListId = bundle.getIntegerArrayList(ID);
         //拼接字符串
         String frontUrl = "http://api.liwushuo.com/v2/channels/";
         String backUrl = "/items_v2?gender=2&limit=20&offset=0&generation=1HTTP/1.1";
@@ -86,7 +83,7 @@ public class HRepeatFragment extends BaseFragment {
 
         }
 
-        GsonRequsest<HSelectionBean> requsest = new GsonRequsest<HSelectionBean>(HSelectionBean.class,
+        GsonRequest<HSelectionBean> requsest = new GsonRequest<HSelectionBean>(HSelectionBean.class,
                 url, new Response.Listener<HSelectionBean>() {
 
             @Override

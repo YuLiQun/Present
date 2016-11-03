@@ -1,9 +1,8 @@
-package qunzai.present.single;
+package qunzai.present.internet;
 
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 
 import com.android.volley.Request;
@@ -44,7 +43,7 @@ public class VolleySingleSimple {
         mRequestQueue = Volley.newRequestQueue(MyApp.getmContext());
         //7.初始化ImageLoade ,, 用啦i 请求图片的
         //7.创建一个类MemoeyCache ,,, 用来缓存
-        imageLoader = new ImageLoader(mRequestQueue, new MemoeyCache());
+        imageLoader = new ImageLoader(mRequestQueue, new MemoryCache());
 
         /*LiteOrm*/
         mLiteOrm = LiteOrm.newCascadeInstance(MyApp.getmContext(), "perent.db");
@@ -190,3 +189,4 @@ public class VolleySingleSimple {
 
 
 }
+

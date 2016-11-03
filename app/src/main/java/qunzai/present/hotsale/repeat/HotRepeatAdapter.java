@@ -10,14 +10,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.android.volley.toolbox.Volley;
-
-import java.util.ArrayList;
-
 import qunzai.present.R;
-import qunzai.present.base.BaseFragment;
 import qunzai.present.been.HotSaleRepeatBean;
-import qunzai.present.single.VolleySingleSimple;
+import qunzai.present.internet.VolleySingleSimple;
 
 /**
  * Created by dllo on 16/10/25.

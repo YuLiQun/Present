@@ -2,7 +2,6 @@ package qunzai.present.home.homeselection;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +12,13 @@ import android.widget.TextView;
 
 import qunzai.present.R;
 import qunzai.present.been.HSelectionBean;
-import qunzai.present.single.VolleySingleSimple;
+import qunzai.present.internet.VolleySingleSimple;
 
 /**
  * Created by dllo on 16/10/25.
  */
 public class HSelectionAdapter extends BaseAdapter {
-    Context context;
+    private Context context;
     //把集合换成HSelectionBean数据类的bean,,生成set方法
     private HSelectionBean arrayList;
 
@@ -113,8 +112,8 @@ public class HSelectionAdapter extends BaseAdapter {
 
             viewHolder.llLine.setVisibility(View.GONE);
         }
-        //TODO asdfadsf
-        /********未完待续*********/
+
+
 
 
         return convertView;

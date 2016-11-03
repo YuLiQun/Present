@@ -8,7 +8,10 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="match_parent"
-        android:id="@+id/lv_sort_raiders">
+        android:id="@+id/lv_sort_raiders"
+        android:listSelector="#fefefe"
+        android:divider="@android:color/transparent"
+        >
 
     </ListView>
 
@@ -17,7 +20,8 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="3"
-        android:id="@+id/slv_sort_raiders">
+        android:id="@+id/slv_sort_raiders"
+        android:background="#fefefe">
 
     </se.emilsjolander.stickylistheaders.StickyListHeadersListView>
 </LinearLayout>

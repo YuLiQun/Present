@@ -35,8 +35,8 @@ public class SortFragment extends BaseFragment {
     @Override
     protected void initData() {
         ArrayList<BaseFragment> fragments = new ArrayList<>();
-        fragments.add( new SOneFragment());
         fragments.add( new SRaidersFragment());
+        fragments.add( new SOneFragment());
 
         SortAdapter adapter = new SortAdapter(getChildFragmentManager());
         adapter.setFragments(fragments);

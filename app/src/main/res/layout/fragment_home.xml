@@ -7,16 +7,36 @@
     app:tabTextAppearance="@style/MyTabLayoutTextAppearanceInverse">
     <include layout="@layout/item_include_home"/>
 
-
-    <android.support.design.widget.TabLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:id="@+id/tb_home"
-        app:tabIndicatorColor="#ff3c58"
-        app:tabSelectedTextColor="#ff3c58">
+        >
 
-    </android.support.design.widget.TabLayout>
+        <android.support.design.widget.TabLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tb_home"
+            android:background="#fefefe"
+            app:tabIndicatorColor="#ff3c58"
+            app:tabSelectedTextColor="#ff3c58">
+
+        </android.support.design.widget.TabLayout>
+
+        <ImageView
+            android:layout_centerVertical="true"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:id="@+id/img_home_pop"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/home_pop_change"
+            android:background="#fefefe"
+            />
+
+
+    </RelativeLayout>
+
+
 
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent"

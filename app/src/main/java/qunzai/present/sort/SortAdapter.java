@@ -27,9 +27,9 @@ public class SortAdapter extends FragmentPagerAdapter {
 
 //        for (int i = 0; i < titles.length; i++) {
 //            if (i == 0) {
-//                fragments.add(new SRaidersFragment());
-//            } else {
 //                fragments.add(new SOneFragment());
+//            } else {
+//                fragments.add(new SRaidersFragment());
 //            }
 //        }
     }
