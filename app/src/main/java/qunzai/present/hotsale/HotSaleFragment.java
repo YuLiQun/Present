@@ -13,6 +13,7 @@ import qunzai.present.R;
 import qunzai.present.base.BaseFragment;
 import qunzai.present.been.HotSaleTitleBean;
 import qunzai.present.internet.GsonRequest;
+import qunzai.present.internet.MyURL;
 import qunzai.present.internet.VolleySingleSimple;
 
 /**
@@ -22,7 +23,7 @@ public class HotSaleFragment extends BaseFragment {
 
     private TabLayout tbHotsale;
     private ViewPager vpHotsale;
-    private String url = "http://api.liwushuo.com/v2/ranks_v2/ranks";
+//    private String url = "http://api.liwushuo.com/v2/ranks_v2/ranks";
 
     @Override
     protected int getLayout() {
@@ -55,7 +56,7 @@ public class HotSaleFragment extends BaseFragment {
 
     private void initGsonData() {
          GsonRequest<HotSaleTitleBean> requsest = new GsonRequest<HotSaleTitleBean>(HotSaleTitleBean.class,
-                url, new Response.Listener<HotSaleTitleBean>() {
+                 MyURL.HOT_TITLE, new Response.Listener<HotSaleTitleBean>() {
             @Override
             public void onResponse(HotSaleTitleBean response) {
                 int titleSize = response.getData().getRanks().size();

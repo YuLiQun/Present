@@ -29,7 +29,7 @@
             android:layout_height="match_parent"
             android:id="@+id/img_home_pop"
             android:layout_alignParentRight="true"
-            android:src="@drawable/home_pop_change"
+            android:src="@mipmap/arrow_grey_down"
             android:background="#fefefe"
             />
 

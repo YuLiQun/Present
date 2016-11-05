@@ -1,18 +1,22 @@
 package qunzai.present.home.homeselection;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -22,9 +26,11 @@ import java.util.ArrayList;
 import qunzai.present.R;
 import qunzai.present.base.BaseFragment;
 import qunzai.present.been.HSelectionBean;
+import qunzai.present.home.homerepeat.homedetails.HomeDetailsActivity;
 import qunzai.present.internet.GsonRequest;
 import qunzai.present.home.wheel.HSWheelAdapter;
 import qunzai.present.been.HSWheelBean;
+import qunzai.present.internet.MyURL;
 import qunzai.present.internet.VolleySingleSimple;
 
 /**
@@ -33,7 +39,7 @@ import qunzai.present.internet.VolleySingleSimple;
 public class HSelectionFragment extends BaseFragment {
 
     private ListView lv;
-    String wheelUrl = "http://api.liwushuo.com/v2/banners";
+    //    String wheelUrl = "http://api.liwushuo.com/v2/banners";
     private ArrayList<String> arrayList;
     private ArrayList<ImageView> imgArrayList;
     private ViewPager vpWheel;
@@ -43,13 +49,14 @@ public class HSelectionFragment extends BaseFragment {
     private boolean isStop = false;
     Context context;
     private int urlSize;
+    private ArrayList<String> arrayUrl = new ArrayList<>();
 
 
     private Handler mHandler;
     private GsonRequest<HSWheelBean> gsonRequsest;
     private GsonRequest<HSelectionBean> lvRequsest;
     private ArrayList<HSelectionBean> lvBeenArrayList;
-    String url = "http://api.liwushuo.com/v2/channels/100/items_v2?ad=2&gender=1&generation=1&limit=20&offset=0";
+//    String url = "http://api.liwushuo.com/v2/channels/100/items_v2?ad=2&gender=1&generation=1&limit=20&offset=0";
 
     /**
      * 轮播图4.
@@ -118,7 +125,7 @@ public class HSelectionFragment extends BaseFragment {
     private void initUrlData() {
 
         lvRequsest = new GsonRequest<HSelectionBean>(HSelectionBean.class,
-                url, new Response.Listener<HSelectionBean>() {
+                MyURL.HOME_WHEEL_LV, new Response.Listener<HSelectionBean>() {
 
 
             @Override
@@ -159,11 +166,42 @@ public class HSelectionFragment extends BaseFragment {
 //                }
 
 
+                for (int i = 0; i < response.getData().getItems().size(); i++) {
+
+                    String url = response.getData().getItems().get(i).getUrl();
+
+                    arrayUrl.add(url);
+                }
+
+
+                lvClick();
+
+
             }
+
+
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
 
+            }
+        });
+    }
+
+    private void lvClick() {
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String s = arrayUrl.get(position -1);
+
+                if (s != null && !"".equals(s)) {
+                    Intent intent = new Intent(context, HomeDetailsActivity.class);
+                    intent.putExtra("content", s);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(context, "找不到网址", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -174,7 +212,7 @@ public class HSelectionFragment extends BaseFragment {
         //轮播点的半径
 //设置监听vp和小点一起懂
         gsonRequsest = new GsonRequest<HSWheelBean>(
-                HSWheelBean.class, wheelUrl, new Response.Listener<HSWheelBean>() {
+                HSWheelBean.class, MyURL.HOME_WHEEL, new Response.Listener<HSWheelBean>() {
             @Override
             public void onResponse(HSWheelBean response) {
                 urlSize = response.getData().getBanners().size();

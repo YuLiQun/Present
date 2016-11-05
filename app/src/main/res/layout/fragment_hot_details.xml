@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,16 +18,14 @@
 
 
         <android.support.design.widget.TabLayout
+
             android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:layout_height="wrap_content"
-            app:tabGravity="fill"
-            app:tabMode="fixed"
-            app:tabIndicatorColor="#ff3c58"
-            app:tabSelectedTextColor="#ff3c58"
-            android:id="@+id/tb_sort">
+            android:id="@+id/tb_hotsale_details">
 
         </android.support.design.widget.TabLayout>
+
 
         <FrameLayout
             android:layout_width="0dp"
@@ -37,35 +34,21 @@
 
         </FrameLayout>
 
-
     </LinearLayout>
 
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:background="#f9f5f4"
-        android:id="@+id/ll_home_selection_find">
 
-
-        <TextView
-            android:gravity="center"
-            android:layout_marginTop="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="选份走心好礼送Ta"/>
-
-    </LinearLayout>
 
     <android.support.v4.view.ViewPager
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/vp_sort">
+        android:layout_height="match_parent"
+        android:id="@+id/vp_hotsale_details"
+        >
 
     </android.support.v4.view.ViewPager>
+
+
 
 
 </LinearLayout>

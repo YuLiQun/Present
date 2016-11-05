@@ -1,11 +1,12 @@
 package qunzai.present.been;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by dllo on 16/10/29.
  */
-public class HotSaleRepeatBean {
+public class HotSaleRepeatBean implements Serializable {
 
 
 
@@ -45,7 +46,7 @@ public class HotSaleRepeatBean {
         this.message = message;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         private String cover_image;
         private String cover_url;
         private String cover_webp;
@@ -146,7 +147,7 @@ public class HotSaleRepeatBean {
             }
         }
 
-        public static class ItemsBean {
+        public static class ItemsBean implements Serializable{
             private Object ad_monitors;
             private Object brand_id;
             private Object brand_order;

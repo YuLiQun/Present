@@ -32,6 +32,21 @@
             >
 
         </activity>
+        <activity android:name=".main.find.FindActivity"
+            android:theme="@style/CustomTitle">
+
+        </activity>
+
+        <activity android:name=".home.homerepeat.homedetails.HomeDetailsActivity"
+            android:theme="@style/CustomTitle"
+            >
+        </activity>
+
+        <activity android:name=".hotsale.repeat.hotdetails.HotDetailsActivity"
+            android:theme="@style/CustomTitle"
+            >
+
+        </activity>
     </application>
 
 </manifest>

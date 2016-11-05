@@ -19,6 +19,7 @@ import qunzai.present.base.BaseFragment;
 import qunzai.present.been.SOneBean;
 import qunzai.present.been.SOneHeaderBean;
 import qunzai.present.internet.GsonRequest;
+import qunzai.present.internet.MyURL;
 import qunzai.present.internet.VolleySingleSimple;
 
 /**
@@ -59,9 +60,9 @@ public class SRaidersFragment extends BaseFragment {
     }
 
     private void initHeaderGson() {
-        String url = "http://api.liwushuo.com/v2/columns?limit=20&offset=0";
+//        String url = "http://api.liwushuo.com/v2/columns?limit=20&offset=0";
         GsonRequest<SOneHeaderBean> requsest = new GsonRequest<SOneHeaderBean>(SOneHeaderBean.class,
-                url, new Response.Listener<SOneHeaderBean>() {
+                MyURL.SORT_RAIDERS_HEADER, new Response.Listener<SOneHeaderBean>() {
             @Override
             public void onResponse(SOneHeaderBean response) {
                 SRaidersHeaderAdapter adapter = new SRaidersHeaderAdapter();
@@ -83,9 +84,9 @@ public class SRaidersFragment extends BaseFragment {
     }
 
     private void initRvGsonData() {
-        String url = "http://api.liwushuo.com/v2/channel_groups/all";
+//        String url = "http://api.liwushuo.com/v2/channel_groups/all";
         GsonRequest<SOneBean> requsest = new GsonRequest<SOneBean>(SOneBean.class,
-                url, new Response.Listener<SOneBean>() {
+                MyURL.SORT_RAIDERS_LV, new Response.Listener<SOneBean>() {
             @Override
             public void onResponse(SOneBean response) {
                 Log.d("aaa", "response:" + response);

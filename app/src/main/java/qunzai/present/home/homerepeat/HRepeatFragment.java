@@ -1,10 +1,14 @@
 package qunzai.present.home.homerepeat;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -14,6 +18,7 @@ import java.util.ArrayList;
 import qunzai.present.R;
 import qunzai.present.base.BaseFragment;
 import qunzai.present.been.HSelectionBean;
+import qunzai.present.home.homerepeat.homedetails.HomeDetailsActivity;
 import qunzai.present.internet.GsonRequest;
 import qunzai.present.home.homeselection.HSelectionAdapter;
 import qunzai.present.internet.VolleySingleSimple;
@@ -27,6 +32,7 @@ public class HRepeatFragment extends BaseFragment {
     private static final String ID = "homeid";
     private ListView lv;
     Context context;
+    private ArrayList<String> arrayUrl = new ArrayList<>();
 
 
     public static HRepeatFragment getInstance(int pos, ArrayList<Integer> arrayListId) {
@@ -56,8 +62,6 @@ public class HRepeatFragment extends BaseFragment {
     protected void initData() {
 
 
-
-
     }
 
 
@@ -83,7 +87,7 @@ public class HRepeatFragment extends BaseFragment {
 
         }
 
-        GsonRequest<HSelectionBean> requsest = new GsonRequest<HSelectionBean>(HSelectionBean.class,
+        final GsonRequest<HSelectionBean> requsest = new GsonRequest<HSelectionBean>(HSelectionBean.class,
                 url, new Response.Listener<HSelectionBean>() {
 
             @Override
@@ -94,7 +98,19 @@ public class HRepeatFragment extends BaseFragment {
                 adapter.setArrayList(response);
                 lv.setAdapter(adapter);
 
+                for (int i = 0; i < response.getData().getItems().size(); i++) {
+                    String str = response.getData().getItems().get(i).getUrl();
+                     arrayUrl.add(str);
+                }
+
+
+                lvClick();
+
+
+
             }
+
+
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -104,6 +120,25 @@ public class HRepeatFragment extends BaseFragment {
 
         VolleySingleSimple.getInstance().addRequest(requsest);
 
+    }
+
+
+    private void lvClick() {
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String s = arrayUrl.get(position);
+
+                if (s != null && !"".equals(s)) {
+                    Intent intent = new Intent(context, HomeDetailsActivity.class);
+                    intent.putExtra("content", s);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(context, "找不到网址", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     @Override

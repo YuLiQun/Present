@@ -8,6 +8,7 @@ import java.util.TimerTask;
 
 import qunzai.present.R;
 import qunzai.present.base.BaseActivity;
+import qunzai.present.internet.MyURL;
 import qunzai.present.internet.VolleySingleSimple;
 
 /**
@@ -18,7 +19,7 @@ public class WelcomeActivity extends BaseActivity {
     private ImageView imgWelcome;
     int reclen = 3;
     Timer timer = new Timer();
-    String strImage = "http://h.hiphotos.baidu.com/image/pic/item/4afbfbedab64034fd7b9c9d3a7c379310b551dea.jpg";
+//    String strImage = "http://h.hiphotos.baidu.com/image/pic/item/4afbfbedab64034fd7b9c9d3a7c379310b551dea.jpg";
 
     @Override
     protected int getLayout() {
@@ -35,7 +36,7 @@ public class WelcomeActivity extends BaseActivity {
     @Override
     protected void initData() {
         //网络请求图片
-        VolleySingleSimple.getInstance().getImage(strImage,imgWelcome);
+        VolleySingleSimple.getInstance().getImage(MyURL.WELCOME,imgWelcome);
 
         timer.schedule(task,1000,1000);
     }

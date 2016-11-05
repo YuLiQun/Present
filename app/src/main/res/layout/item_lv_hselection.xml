@@ -76,7 +76,7 @@
         android:id="@+id/img_home_selection_gone"
         android:layout_toLeftOf="@id/tv_home_selection_likescount"
         android:layout_below="@id/ll_home_selection_line"
-        android:src="@mipmap/ic_action_compact_favourite_normal"
+        android:src="@mipmap/ic_action_compact_favourite_norm"
         android:layout_marginRight="5dp"/>
 
     <TextView

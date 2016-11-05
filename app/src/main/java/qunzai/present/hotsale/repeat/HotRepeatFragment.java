@@ -1,6 +1,7 @@
 package qunzai.present.hotsale.repeat;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -18,6 +19,8 @@ import java.util.ArrayList;
 import qunzai.present.R;
 import qunzai.present.base.BaseFragment;
 import qunzai.present.been.HotSaleRepeatBean;
+import qunzai.present.home.OnRecyclerItemClickListener;
+import qunzai.present.hotsale.repeat.hotdetails.HotDetailsActivity;
 import qunzai.present.internet.GsonRequest;
 import qunzai.present.internet.VolleySingleSimple;
 
@@ -34,6 +37,8 @@ public class HotRepeatFragment extends BaseFragment {
     private Context context;
     private RecyclerViewHeader rvHeader;
     private ListView lv;
+    private HotRepeatAdapter adapter;
+    private HotSaleRepeatBean.DataBean.ItemsBean itemsBean;
 
     public static HotRepeatFragment getInstance(int pos , ArrayList<Integer> arrayListId){
         HotRepeatFragment hotRepeatFragment = new HotRepeatFragment();
@@ -79,7 +84,7 @@ public class HotRepeatFragment extends BaseFragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         Bundle bundle = getArguments();
-        int pos = bundle.getInt(KEY);
+        final int pos = bundle.getInt(KEY);
         ArrayList<Integer> arrayListId = bundle.getIntegerArrayList(ID);
         String fromdUrl = "http://api.liwushuo.com/v2/ranks_v2/ranks/";
         String backUrl = "?limit=20&offset=0HTTP/1.1";
@@ -101,9 +106,20 @@ public class HotRepeatFragment extends BaseFragment {
             public void onResponse(HotSaleRepeatBean response) {
 
 
-                HotRepeatAdapter adapter = new HotRepeatAdapter(context);
+                adapter = new HotRepeatAdapter(context);
                 adapter.setRepeatBean(response);
                 rv.setAdapter(adapter);
+                int size = response.getData().getItems().size();
+                for (int i = 0; i < size; i++) {
+                    itemsBean = response.getData().getItems().get(i);
+                }
+
+
+
+
+
+                rvClick();
+
 
                 String imgTitUrl = response.getData().getCover_image();
                 VolleySingleSimple.getInstance().getImage(imgTitUrl,imgTit);
@@ -132,6 +148,20 @@ public class HotRepeatFragment extends BaseFragment {
         VolleySingleSimple.getInstance().addRequest(requsest);
 
         
+    }
+
+    private void rvClick() {
+        adapter.setOnRecyclerItemClickListener(new OnRecyclerItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                Intent intent = new Intent(context, HotDetailsActivity.class);
+                //TODO 此处有传值
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("hotitem" ,itemsBean);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
     }
 
 

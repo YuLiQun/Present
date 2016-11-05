@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="40dp">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="6"
+        android:layout_height="match_parent"
+        android:id="@+id/tv_find_item_data"
+        android:text="    女羊羔毛牛仔外套"
+        android:gravity="center_vertical"
+        android:drawableLeft="@mipmap/icon_clock"
+        android:textColor="#342b2a"
+        android:layout_marginLeft="10dp"
+       />
+
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:id="@+id/img_find_close"
+        android:layout_gravity="center"
+        android:layout_marginRight="10dp"
+        android:src="@mipmap/abc_ic_clear_search_api_disabled_holo_light"/>
+
+</LinearLayout>

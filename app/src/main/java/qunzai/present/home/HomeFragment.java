@@ -1,5 +1,6 @@
 package qunzai.present.home;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 
@@ -21,7 +23,9 @@ import qunzai.present.R;
 import qunzai.present.base.BaseFragment;
 import qunzai.present.been.HomeTitleBean;
 import qunzai.present.internet.GsonRequest;
+import qunzai.present.internet.MyURL;
 import qunzai.present.internet.VolleySingleSimple;
+import qunzai.present.main.find.FindActivity;
 
 /**
  * Created by dllo on 16/10/21.
@@ -35,6 +39,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private HPopAdapter popAdapter;
     private PopupWindow pop;
     private RecyclerView popRv;
+    private ImageView imgClosePop;
+    private Button btnIntent;
 
 
     @Override
@@ -48,7 +54,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         tbHome = bindView(R.id.tb_home);
         vpHome = bindView(R.id.vp_home);
         img = bindView(R.id.img_home_pop);
+        btnIntent = bindView(R.id.btn_find_intent);
         img.setOnClickListener(this);
+        btnIntent.setOnClickListener(this);
+
 
     }
 
@@ -65,20 +74,18 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void rvClick() {
-        Log.d("sss", "消失了么++++"  + "走了么");
+
         popAdapter.setOnRecyclerItemClickListener(new OnRecyclerItemClickListener() {
             @Override
             public void onClick(int position) {
 
-                Log.d("sss", "消失了么++++" + position);
+
                 if (pop.isShowing()){
                     pop.dismiss();
-                    Log.d("sss", "消失了么" + position);
+
                 }
             }
         });
-
-
 
 
 
@@ -95,8 +102,18 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                     popShow();
                 }
 
+                break;
+            case R.id.img_home_pop_close://点击关闭pop
+
+                if (pop.isShowing()){
+                    pop.dismiss();
 
 
+                }
+                break;
+            case R.id.btn_find_intent:
+                Intent intent = new Intent(mContext, FindActivity.class);
+                startActivity(intent);
                 break;
         }
     }
@@ -106,12 +123,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         pop = new PopupWindow(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         View viewW = LayoutInflater.from(mContext).inflate(R.layout.item_home_pop, null);
         popRv = bindView(viewW, R.id.rv_home_pop);
+        imgClosePop = bindView(viewW, R.id.img_home_pop_close);
+        imgClosePop.setOnClickListener(this);
         popRv.setAdapter(popAdapter);
         GridLayoutManager manager = new GridLayoutManager(mContext, 4, LinearLayoutManager.VERTICAL, false);
         popRv.setLayoutManager(manager);
 
         pop.setContentView(viewW);
-        pop.showAsDropDown(img, 0, 0);
+        pop.showAsDropDown(img, 0, -75);
 
 
 
@@ -119,12 +138,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
 
     private void initGsonTitle() {
-        String url = "http://api.liwushuo.com/v2/channels/preset?gender=2&generation=1";
+//        String url = "http://api.liwushuo.com/v2/channels/preset?gender=2&generation=1";
         final ArrayList<String> arrayList = new ArrayList<>();
         final ArrayList<Integer> arrayListId = new ArrayList<>();
 
         beenarr = new GsonRequest<HomeTitleBean>(HomeTitleBean.class,
-                url, new Response.Listener<HomeTitleBean>() {
+                MyURL.HOME_TITLE, new Response.Listener<HomeTitleBean>() {
             @Override
             public void onResponse(HomeTitleBean response) {
 

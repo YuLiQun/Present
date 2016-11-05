@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:orientation="horizontal"
+
     >
 
     <TextView
@@ -21,6 +22,7 @@
         android:layout_weight="7"
         android:layout_height="30dp"
         android:layout_gravity="center"
+        android:id="@+id/btn_find_intent"
         android:background="@drawable/home_include"
         android:hint="送份走心的好礼送给Ta"/>
 

@@ -12,6 +12,7 @@ import qunzai.present.R;
 import qunzai.present.base.BaseFragment;
 import qunzai.present.been.SRaidersBean;
 import qunzai.present.internet.GsonRequest;
+import qunzai.present.internet.MyURL;
 import qunzai.present.internet.VolleySingleSimple;
 import qunzai.present.sort.one.orlr.SOneLeftAdapter;
 import qunzai.present.sort.one.orlr.SOneRightAdapter;
@@ -90,9 +91,9 @@ public class SOneFragment extends BaseFragment {
     }
 
     private void initGsonLeft() {
-        String url = "http://api.liwushuo.com/v2/item_categories/tree";
+//        String url = "http://api.liwushuo.com/v2/item_categories/tree";
         GsonRequest<SRaidersBean> requsest = new GsonRequest<SRaidersBean>(SRaidersBean.class,
-                url, new Response.Listener<SRaidersBean>() {
+                MyURL.SORT_ONE_LV, new Response.Listener<SRaidersBean>() {
             @Override
             public void onResponse(SRaidersBean response) {
 

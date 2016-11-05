@@ -32,6 +32,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         return (T) findViewById(id);
     }
 
+    protected <T extends View> T bindView(View view, int id){
+        return (T) view.findViewById(id);
+    }
+
     //简化监听
     protected void setClickListener(View.OnClickListener clickListener ,View ...views){
         for (View view :views) {

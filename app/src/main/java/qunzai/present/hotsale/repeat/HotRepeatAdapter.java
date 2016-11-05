@@ -2,6 +2,7 @@ package qunzai.present.hotsale.repeat;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import qunzai.present.R;
 import qunzai.present.been.HotSaleRepeatBean;
+import qunzai.present.home.OnRecyclerItemClickListener;
 import qunzai.present.internet.VolleySingleSimple;
 
 /**
@@ -20,6 +22,12 @@ import qunzai.present.internet.VolleySingleSimple;
 public class HotRepeatAdapter extends RecyclerView.Adapter<HotRepeatAdapter.MyViewHolder> {
     private Context context;
     private HotSaleRepeatBean repeatBean;
+    private OnRecyclerItemClickListener onRecyclerItemClickListener;
+
+
+    public void setOnRecyclerItemClickListener(OnRecyclerItemClickListener onRecyclerItemClickListener) {
+        this.onRecyclerItemClickListener = onRecyclerItemClickListener;
+    }
 
     public HotRepeatAdapter(Context context) {
         this.context = context;
@@ -38,7 +46,7 @@ public class HotRepeatAdapter extends RecyclerView.Adapter<HotRepeatAdapter.MyVi
     }
 
     @Override
-    public void onBindViewHolder(HotRepeatAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(HotRepeatAdapter.MyViewHolder holder, final int position) {
 
         HotSaleRepeatBean.DataBean.ItemsBean itemsBean = repeatBean.getData().getItems().get(position);
 
@@ -52,6 +60,13 @@ public class HotRepeatAdapter extends RecyclerView.Adapter<HotRepeatAdapter.MyVi
         holder.tvPrice.setText(price);
         holder.tvTop.setText("top" +( position + 1));
         VolleySingleSimple.getInstance().getImage(imgUrl,holder.imgCoverimage);
+
+        holder.rlBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onRecyclerItemClickListener.onClick(position);
+            }
+        });
 
 
 //        holder.rlBack.setBackgroundResource(R.drawable.hotsale_coverimg_back);
@@ -76,7 +91,8 @@ public class HotRepeatAdapter extends RecyclerView.Adapter<HotRepeatAdapter.MyVi
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private RelativeLayout rlBack;
+        private CardView rlBack;
+        //        private RelativeLayout rlBack;
         private ImageView imgCoverimage;
         private TextView tvTop;
         private TextView tvDescription;
@@ -91,6 +107,7 @@ public class HotRepeatAdapter extends RecyclerView.Adapter<HotRepeatAdapter.MyVi
             tvDescription = (TextView) itemView.findViewById(R.id.tv_hot_repeat_description);
             tvName = (TextView) itemView.findViewById(R.id.tv_hot_repeat_name);
             tvPrice = (TextView) itemView.findViewById(R.id.tv_hot_repeat_price);
+            rlBack = (CardView) itemView.findViewById(R.id.rl_hot_repeat_background);
 //            rlBack = (RelativeLayout) itemView.findViewById(R.id.rl_hot_repeat_background);
 
 

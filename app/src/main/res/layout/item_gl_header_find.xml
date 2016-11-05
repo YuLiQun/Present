@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="70dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_find_item_gl"
+        android:text="笔记本"
+        android:background="@drawable/find_back"
+        />
+
+</LinearLayout>

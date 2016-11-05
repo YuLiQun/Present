@@ -54,8 +54,6 @@ public class HomeAdapter extends FragmentPagerAdapter {
         } else {
             if (fragments.get(position) == null) {
                 fragments.put(position, HRepeatFragment.getInstance(position, arrayListId));
-                Log.d("qqq", "arrayListId +++:" + arrayListId);
-                Log.d("qqq", "position+++:" + position);
             }
         }
         return fragments.get(position);
