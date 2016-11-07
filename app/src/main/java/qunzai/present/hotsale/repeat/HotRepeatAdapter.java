@@ -84,6 +84,10 @@ public class HotRepeatAdapter extends RecyclerView.Adapter<HotRepeatAdapter.MyVi
 
     }
 
+    public HotSaleRepeatBean.DataBean.ItemsBean getItemBean(int pos){
+        return repeatBean.getData().getItems().get(pos);
+    }
+
     @Override
     public int getItemCount() {
         return repeatBean.getData().getItems().size();

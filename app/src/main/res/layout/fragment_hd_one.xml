@@ -1,21 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--<ScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
 
-   <android.support.v7.widget.RecyclerView
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:id="@+id/rv_hot_done">
+            <com.jude.rollviewpager.RollPagerView
 
-   </android.support.v7.widget.RecyclerView>
+                android:id="@+id/roll_hot_done"
+                android:layout_width="match_parent"
+                android:layout_height="405dp">
 
-    <com.bartoszlipinski.recyclerviewheader.RecyclerViewHeader
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/rvheader_hot_done">
 
-    </com.bartoszlipinski.recyclerviewheader.RecyclerViewHeader>
 
-</LinearLayout>
+
+            </com.jude.rollviewpager.RollPagerView>
+
+            <LinearLayout
+                android:layout_marginTop="3dp"
+                android:gravity="center_horizontal"
+                android:paddingBottom="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <TextView
+                    android:layout_marginTop="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_hot_done_top"
+                    android:text="top1"/>
+
+                <TextView
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#342b2a"
+                    android:layout_marginTop="4dp"
+                    android:id="@+id/tv_hot_done_shortdescription"
+                    android:textSize="20dp"
+                    android:text="jksjkljkjhkljkjjf"/>
+
+
+            </LinearLayout>
+
+
+
+
+            <TextView
+
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="悦诗风吟·真萃鲜润面膜*15片"
+                android:id="@+id/tv_hot_done_name"
+                android:layout_marginTop="10dp"
+                android:textColor="#837676"
+                />
+
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="￥"
+                    android:textSize="20dp"
+                    android:textColor="#ff3c58"
+                    />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_hot_done_price"
+                    android:text="20"
+                    android:textSize="20dp"
+                    android:textColor="#ff3c58"
+                    android:layout_marginLeft="5dp"
+                   />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:paddingBottom="3dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="2dp"
+                    android:src="@mipmap/ic_action_compact_favourite_norm"
+                    android:layout_marginRight="5dp"/>
+
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_hot_done_likescount"
+                    android:text="88"
+                    android:textSize="10dp"
+                    android:textColor="#837676"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"/>
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="10dp"
+                android:textColor="#837676"
+                android:id="@+id/tv_hot_done_description"
+                android:text="bjdvcxdfms adlerfkjvn dasuhgb sajdrfbv sawo,hfv r"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"/>
+
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:id="@+id/ll_hot_done_gone"
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#ff3c58"
+                    android:textSize="10dp"
+                    android:text="· 正品保证 ·"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="10dp"
+                    android:textColor="#837676"
+                    android:text="精品正选,假货额外赔付100%"/>
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_marginTop="10dp"
+                android:id="@+id/rv_hot_done_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_marginTop="10dp"
+                android:id="@+id/rv_hot_done_grid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+
+
+        </LinearLayout>
+
+    <!--</ScrollView>-->
+
+
+</ScrollView>

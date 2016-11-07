@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#fefefe"
+        >
+
+
+        <ImageView
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:scaleType="fitXY"
+            android:id="@+id/img_hot_done_img"
+            android:src="@mipmap/image_default" />
+
+
+        <TextView
+            android:layout_width="160dp"
+            android:layout_height="20dp"
+            android:textColor="#342b2a"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="3dp"
+            android:id="@+id/tv_hot_done_grid_description"
+            android:layout_below="@id/img_hot_done_img"
+            android:text="jksjkljkjhkljkjjhkkljkjhjkjkljjjfhjhfjkljhjldjf"
+
+            />
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="￥"
+            android:textColor="#ff3c58"
+            android:layout_below="@+id/tv_hot_done_grid_description"
+            android:layout_marginTop="20dp"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_hot_done_grid_price"
+            android:text="20"
+            android:textColor="#ff3c58"
+            android:layout_below="@id/tv_hot_done_grid_description"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"/>
+
+
+    </RelativeLayout>
+
+</LinearLayout>

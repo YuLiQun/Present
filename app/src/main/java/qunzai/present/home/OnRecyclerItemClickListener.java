@@ -5,6 +5,6 @@ package qunzai.present.home;
  */
 //写一个接口
 public interface OnRecyclerItemClickListener {
-    public void onClick(int position);
+     void onClick(int position);
 
 }

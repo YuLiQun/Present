@@ -155,9 +155,9 @@ public class HotRepeatFragment extends BaseFragment {
             @Override
             public void onClick(int position) {
                 Intent intent = new Intent(context, HotDetailsActivity.class);
-                //TODO 此处有传值
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("hotitem" ,itemsBean);
+                //获取adapter 里的position
+                bundle.putSerializable("hotitem" ,adapter.getItemBean(position));
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
