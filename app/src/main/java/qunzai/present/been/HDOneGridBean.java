@@ -39,34 +39,7 @@ public class HDOneGridBean {
     }
 
     public static class DataBean {
-        /**
-         * ad_monitors : null
-         * brand_id : null
-         * brand_order : null
-         * category_id : 13
-         * cover_image_url : http://img03.liwushuo.com/image/161030/uwh2ot4cr_w.jpg-w720
-         * cover_webp_url : http://img03.liwushuo.com/image/161030/uwh2ot4cr_w.jpg?imageView2/2/w/720/q/85/format/webp
-         * created_at : 1477833470
-         * description : 超级韩范儿的一款宽松毛衣，设计上迎合了前后不对称、侧边开衩两大时尚元素，上身效果令身材更显纤细，高领的款式保暖又时髦，质感十足的低饱和度棕色也是毛衣的亮点之一，既然毫无槽点，快入手一件吧。
-         * editor_id : 1134
-         * favorites_count : 938
-         * id : 1073583
-         * image_urls : ["http://img03.liwushuo.com/image/161028/ggak7p3qb.jpg-w720","http://img03.liwushuo.com/image/161028/obitlc8e4.jpg-w720","http://img03.liwushuo.com/image/161028/wqqqzvizi.jpg-w720","http://img01.liwushuo.com/image/161028/ts621rkbf.jpg-w720","http://img01.liwushuo.com/image/161028/flh9ywxvm.jpg-w720","http://img03.liwushuo.com/image/161030/uwh2ot4cr_w.jpg-w720"]
-         * keywords :
-         * name : 韩都衣舍·宽松高领侧开叉毛衣
-         * post_ids : []
-         * price : 168.00
-         * purchase_id : 538849767088
-         * purchase_shop_id : 58501945
-         * purchase_status : 1
-         * purchase_type : 2
-         * purchase_url : http://s.click.taobao.com/t?e=m%3D2%26s%3DKLo8ol%2F4TFocQipKwQzePOeEDrYVVa64yK8Cckff7TVRAdhuF14FMXeM5cyCd%2FHJJ1gyddu7kN%2BtgmtnxDX9deVMA5qBABUs5mPg1WiM1P5OS0OzHKBZzQIomwaXGXUs78FqzS29vh5nPjZ5WWqolN%2FWWjML5JdM90WyHry0om2eywYYT8u7ldd0XxLsMlgIU5vUpG11wMPPZMUUR31Kpg%3D%3D
-         * short_description :
-         * subcategory_id : 178
-         * updated_at : 1477833470
-         * url : liwushuo:///page?type=item&page_action=navigation&item_id=1073583
-         * webp_urls : ["http://img03.liwushuo.com/image/161028/ggak7p3qb.jpg?imageView2/2/w/720/q/85/format/webp","http://img03.liwushuo.com/image/161028/obitlc8e4.jpg?imageView2/2/w/720/q/85/format/webp","http://img03.liwushuo.com/image/161028/wqqqzvizi.jpg?imageView2/2/w/720/q/85/format/webp","http://img01.liwushuo.com/image/161028/ts621rkbf.jpg?imageView2/2/w/720/q/85/format/webp","http://img01.liwushuo.com/image/161028/flh9ywxvm.jpg?imageView2/2/w/720/q/85/format/webp","http://img03.liwushuo.com/image/161030/uwh2ot4cr_w.jpg?imageView2/2/w/720/q/85/format/webp"]
-         */
+
 
         private List<RecommendItemsBean> recommend_items;
         /**

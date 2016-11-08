@@ -137,4 +137,11 @@ public class CommonViewHolder extends RecyclerView.ViewHolder {
         View view = getView(id);
         view.setBackgroundColor(color);
     }
+
+
+    //画园
+    public void setCircleImg(int id,String url){
+        ImageView imageView = getView(id);
+        VolleySingleSimple.getInstance().getCircleImg(url,imageView);
+    }
 }

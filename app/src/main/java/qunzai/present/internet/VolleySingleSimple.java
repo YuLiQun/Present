@@ -18,6 +18,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import qunzai.present.R;
+import qunzai.present.other.CircleDrawable;
 
 /**
  * Created by dllo on 16/10/24.
@@ -31,9 +32,9 @@ public class VolleySingleSimple {
     private static VolleySingleSimple volleySingleSimple;
     private final ImageLoader imageLoader;
     private final RequestQueue mRequestQueue;
-    private LiteOrm mLiteOrm;/*LiteOrm*/
-    private Executor mExcutorPool;/*线程池*/
-    private Handler mHandler;/*用来做线程之间的切换的*/
+//    private LiteOrm mLiteOrm;/*LiteOrm*/
+//    private Executor mExcutorPool;/*线程池*/
+//    private Handler mHandler;/*用来做线程之间的切换的*/
 
     //1.
     private VolleySingleSimple() {
@@ -45,13 +46,13 @@ public class VolleySingleSimple {
         //7.创建一个类MemoeyCache ,,, 用来缓存
         imageLoader = new ImageLoader(mRequestQueue, new MemoryCache());
 
-        /*LiteOrm*/
-        mLiteOrm = LiteOrm.newCascadeInstance(MyApp.getmContext(), "perent.db");
-        /***Looper.getMainLooper()** :写这个代码,,,类保证Handler一定属于主线程*/
-        mHandler = new Handler(Looper.getMainLooper());
-        int cpuMore = Runtime.getRuntime().availableProcessors();
-        /*newFixedThreadPool 任务队列是无限的*/
-        mExcutorPool = Executors.newFixedThreadPool(cpuMore + 1);
+//        /*LiteOrm*/
+//        mLiteOrm = LiteOrm.newCascadeInstance(MyApp.getmContext(), "perent.db");
+//        /***Looper.getMainLooper()** :写这个代码,,,类保证Handler一定属于主线程*/
+//        mHandler = new Handler(Looper.getMainLooper());
+//        int cpuMore = Runtime.getRuntime().availableProcessors();
+//        /*newFixedThreadPool 任务队列是无限的*/
+//        mExcutorPool = Executors.newFixedThreadPool(cpuMore + 1);
 
 
     }
@@ -85,6 +86,14 @@ public class VolleySingleSimple {
     //指定泛型
     public <T> void addRequest(Request<T> request) {
         mRequestQueue.add(request);
+    }
+
+    //画圆
+    public void getCircleImg(String url, ImageView imageView) {
+
+
+        imageLoader.get(url, new CircleImgListener(imageView));
+
     }
 
 
@@ -121,71 +130,101 @@ public class VolleySingleSimple {
         public void onErrorResponse(VolleyError error) {
 
         }
+
     }
 
-    /*LiteOrm 的存数据方法*/
-    public <T> void instertData(final List<T> tList) {
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                insertDB(tList);
+    //画圆
+    class CircleImgListener implements ImageLoader.ImageListener {
+        private ImageView imageView;
+
+        public CircleImgListener(ImageView imageView) {
+            this.imageView = imageView;
+        }
+
+        @Override
+        public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
+            Bitmap bitmap = response.getBitmap();
+            if (bitmap == null) {
+                imageView.setImageResource(R.mipmap.ic_launcher);
+            } else {
+                CircleDrawable circleDrawable = new CircleDrawable(bitmap);
+                imageView.setImageDrawable(circleDrawable);
             }
-        }).start();
-
-    }
-
-    /*LiteOrm */
-    private <T> void insertDB(List<T> T) {
-        mLiteOrm.insert(T);
-    }
-
-    /*LiteOrm 的查询数据方法*/
-    public <T> void queryAllData(OnQueryListenerAll<T> onQueryListener, Class<T> tClass) {
-
-        mExcutorPool.execute(new QueryRunnable<T>(onQueryListener, tClass));
-
-    }
-
-    /*LiteOrm 外部的子线程*/
-    class QueryRunnable<T> implements Runnable {
-        private OnQueryListenerAll<T> mOnQueryListener;
-        private Class<T> tClass;
-
-        //带有两个参数的构造
-        public QueryRunnable(OnQueryListenerAll<T> mOnQueryListener, Class<T> tClass) {
-            this.mOnQueryListener = mOnQueryListener;
-            this.tClass = tClass;
         }
 
         @Override
-        public void run() {
-            ArrayList<T> query = mLiteOrm.query(tClass);
-            mHandler.post(new CallBackRunnable<T>(mOnQueryListener, query));
+        public void onErrorResponse(VolleyError error) {
+            imageView.setImageResource(R.mipmap.ic_launcher);
         }
     }
 
-    /*LiteOrm */
-    class CallBackRunnable<T> implements Runnable {
-        OnQueryListenerAll<T> mOnQueryListener;
-        List<T> tList;
 
-        //带有两个参数的构造
-        public CallBackRunnable(OnQueryListenerAll<T> mOnQueryListener, List<T> tList) {
-            this.mOnQueryListener = mOnQueryListener;
-            this.tList = tList;
-        }
 
-        @Override
-        public void run() {
-            mOnQueryListener.onQuery(tList);
-        }
-    }
 
-    /*LiteOrm */
-    public interface OnQueryListenerAll<T> {
-        void onQuery(List<T> T);
-    }
+//    /*LiteOrm 的存数据方法*/
+//    public <T> void instertData(final List<T> tList) {
+//
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                insertDB(tList);
+//            }
+//        }).start();
+//
+//    }
+//
+//    /*LiteOrm */
+//    private <T> void insertDB(List<T> T) {
+//        mLiteOrm.insert(T);
+//    }
+//
+//    /*LiteOrm 的查询数据方法*/
+//    public <T> void queryAllData(OnQueryListenerAll<T> onQueryListener, Class<T> tClass) {
+//
+//        mExcutorPool.execute(new QueryRunnable<T>(onQueryListener, tClass));
+//
+//    }
+//
+//    /*LiteOrm 外部的子线程*/
+//    class QueryRunnable<T> implements Runnable {
+//        private OnQueryListenerAll<T> mOnQueryListener;
+//        private Class<T> tClass;
+//
+//        //带有两个参数的构造
+//        public QueryRunnable(OnQueryListenerAll<T> mOnQueryListener, Class<T> tClass) {
+//            this.mOnQueryListener = mOnQueryListener;
+//            this.tClass = tClass;
+//        }
+//
+//        @Override
+//        public void run() {
+//            ArrayList<T> query = mLiteOrm.query(tClass);
+//            mHandler.post(new CallBackRunnable<T>(mOnQueryListener, query));
+//        }
+//    }
+//
+//    /*LiteOrm */
+//    class CallBackRunnable<T> implements Runnable {
+//        OnQueryListenerAll<T> mOnQueryListener;
+//        List<T> tList;
+//
+//        //带有两个参数的构造
+//        public CallBackRunnable(OnQueryListenerAll<T> mOnQueryListener, List<T> tList) {
+//            this.mOnQueryListener = mOnQueryListener;
+//            this.tList = tList;
+//        }
+//
+//        @Override
+//        public void run() {
+//            mOnQueryListener.onQuery(tList);
+//        }
+//    }
+//
+//    /*LiteOrm */
+//    public interface OnQueryListenerAll<T> {
+//        void onQuery(List<T> T);
+//    }
 
 
 }

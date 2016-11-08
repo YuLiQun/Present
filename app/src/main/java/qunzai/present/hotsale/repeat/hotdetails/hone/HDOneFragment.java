@@ -32,6 +32,7 @@ import qunzai.present.R;
 import qunzai.present.base.BaseFragment;
 import qunzai.present.been.HDOneGridBean;
 import qunzai.present.been.HotSaleRepeatBean;
+import qunzai.present.database.LiteOrmSingleSimple;
 import qunzai.present.internet.GsonRequest;
 import qunzai.present.internet.VolleySingleSimple;
 
@@ -126,11 +127,11 @@ public class HDOneFragment extends BaseFragment {
                     @Override
                     public void onResponse(HDOneGridBean response) {
 
-                        //TODO 值没有传过去 ,,明天继续,,oh yeah
-                        Log.d("zzz", "response:)))))" + response);
-                        HDOneGridAdapter adapter = new HDOneGridAdapter(response);
+
+                        HDOneGridAdapter adapter = new HDOneGridAdapter();
+                        adapter.setHdOneGridBean(response);
                         rvGrid.setAdapter(adapter);
-                        GridLayoutManager manager = new GridLayoutManager(mContext,2);
+                        GridLayoutManager manager = new GridLayoutManager(mContext,2,GridLayoutManager.VERTICAL,false);
                         rvGrid.setLayoutManager(manager);
 
                     }
@@ -139,6 +140,7 @@ public class HDOneFragment extends BaseFragment {
             public void onErrorResponse(VolleyError error) {
 
             }
+
 
         });
 

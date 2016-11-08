@@ -13,12 +13,12 @@ import qunzai.present.internet.VolleySingleSimple;
 /**
  * Created by dllo on 16/11/7.
  */
-public class HDOneGridAdapter extends RecyclerView.Adapter<CommonViewHolder>{
+public class HDOneGridAdapter extends RecyclerView.Adapter<CommonViewHolder> {
 
-   private HDOneGridBean hdOneGridBean;
+    private HDOneGridBean hhdOneGridBean;
 
-    public HDOneGridAdapter(HDOneGridBean hdOneGridBean) {
-        this.hdOneGridBean = hdOneGridBean;
+    public void setHdOneGridBean(HDOneGridBean hdOneGridBean) {
+        this.hhdOneGridBean = hdOneGridBean;
         notifyDataSetChanged();
     }
 
@@ -30,23 +30,21 @@ public class HDOneGridAdapter extends RecyclerView.Adapter<CommonViewHolder>{
 
     @Override
     public void onBindViewHolder(CommonViewHolder holder, int position) {
-        HDOneGridBean.DataBean.RecommendItemsBean recommendItemsBean = hdOneGridBean.getData().getRecommend_items().get(position);
-        Log.d("zzz", "recommendItemsBean:" + recommendItemsBean);
+        HDOneGridBean.DataBean.RecommendItemsBean recommendItemsBean = hhdOneGridBean.getData().getRecommend_items().get(position);
+
         String name = recommendItemsBean.getName();
-        String price= recommendItemsBean.getPrice();
-        String url= recommendItemsBean.getCover_image_url();
-        Log.d("zzz", name);
+        String price = recommendItemsBean.getPrice();
+        String url = recommendItemsBean.getCover_image_url();
 
 
-//        holder.setText(R.id.img_hot_done_img);
-        holder.setText(R.id.tv_hot_done_grid_description,name);
-        holder.setText(R.id.tv_hot_done_grid_price,price);
+        holder.setText(R.id.tv_hot_done_grid_description, name);
+        holder.setText(R.id.tv_hot_done_grid_price, price);
         VolleySingleSimple.getInstance().getImage(url, (ImageView) holder.getView(R.id.img_hot_done_img));
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return hhdOneGridBean.getData().getRecommend_items().size();
     }
 }

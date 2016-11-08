@@ -1,5 +1,7 @@
 package qunzai.present.sort.raiders;
 
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,17 +41,26 @@ public class SRaidersAdapter extends BaseAdapter{
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, final ViewGroup parent) {
         CommonViewHolder viewHolder = CommonViewHolder.getViewHolder(convertView,parent,R.layout.item_lv_sort_one);
 
         SOneBean.DataBean.ChannelGroupsBean  channelGroupsBean = sOneBean.getData().getChannel_groups().get(position);
         SOneBean.DataBean.ChannelGroupsBean.ChannelsBean  bean = channelGroupsBean.getChannels().get(position);
         String tvCategory = channelGroupsBean.getName();
-        Log.d("SRaidersAdapter", tvCategory);
 
 
         if (channelGroupsBean.getChannels().size() > 6){
             viewHolder.getView(R.id.tv_sort_one_all).setVisibility(View.VISIBLE);
+            //TODO 这里不能finish ,,,嗯嗯
+//
+//            viewHolder.setViewCliad(R.id.tv_sort_one_all, new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent intent = new Intent(parent.getContext(),SOAllActivity.class);
+//                    parent.getContext().startActivity(intent);
+//
+//                }
+//            });
         }else {
             viewHolder.getView(R.id.tv_sort_one_all).setVisibility(View.GONE);
         }

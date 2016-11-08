@@ -38,12 +38,13 @@ public class HDetailsAdapter extends FragmentPagerAdapter{
     @Override
     public Fragment getItem(int position) {
         if (position == 0){
-            Log.d("zzz", "777777"+itemsBean.getCover_image_url());
             fragments.put(position, HDOneFragment.getInstance(position,itemsBean));
         }else if (position == 1){
-            fragments.put(position,new HDDetailsFragment());
+            String url = itemsBean.getUrl();
+            fragments.put(position, HDDetailsFragment.getInstance(position,url));
         }else {
-            fragments.put(position,new HDCommentFragment());
+            int id = itemsBean.getId();
+            fragments.put(position, HDCommentFragment.getInstance(position,id));
         }
         return fragments.get(position);
     }
