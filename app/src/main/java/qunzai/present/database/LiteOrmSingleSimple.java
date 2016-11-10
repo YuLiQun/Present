@@ -66,7 +66,7 @@ public class LiteOrmSingleSimple {
     }
 
     /*LiteOrm 的查询数据方法*/
-    public <T> void queryAllData(OnQueryListenerAll<T> onQueryListener, Class<T> tClass) {
+    public <T> void queryAllData(Class<T> tClass,OnQueryListenerAll<T> onQueryListener) {
 
         mExcutorPool.execute(new QueryRunnable<T>(onQueryListener, tClass));
 

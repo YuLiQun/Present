@@ -29,7 +29,7 @@
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:id="@+id/tv_find"
-        android:text="取消"/>
+        android:text="搜索"/>
 
 
 

@@ -2,6 +2,7 @@ package qunzai.present.home.homeselection;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -20,6 +21,8 @@ import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import java.util.ArrayList;
 
@@ -38,7 +41,7 @@ import qunzai.present.internet.VolleySingleSimple;
  */
 public class HSelectionFragment extends BaseFragment {
 
-    private ListView lv;
+    private PullToRefreshListView lv;
     //    String wheelUrl = "http://api.liwushuo.com/v2/banners";
     private ArrayList<String> arrayList;
     private ArrayList<ImageView> imgArrayList;
@@ -56,7 +59,11 @@ public class HSelectionFragment extends BaseFragment {
     private GsonRequest<HSWheelBean> gsonRequsest;
     private GsonRequest<HSelectionBean> lvRequsest;
     private ArrayList<HSelectionBean> lvBeenArrayList;
-//    String url = "http://api.liwushuo.com/v2/channels/100/items_v2?ad=2&gender=1&generation=1&limit=20&offset=0";
+    private int currItem;
+    private int j = 20;
+
+    private HSelectionAdapter adapter;
+    //    String url = "http://api.liwushuo.com/v2/channels/100/items_v2?ad=2&gender=1&generation=1&limit=20&offset=0";
 
     /**
      * 轮播图4.
@@ -99,7 +106,7 @@ public class HSelectionFragment extends BaseFragment {
         llWheel = bindView(view, R.id.ll_home_selection_wheel_point);
 
         //添加头布局
-        lv.addHeaderView(view);
+        lv.getRefreshableView().addHeaderView(view);
 
 
     }
@@ -113,12 +120,75 @@ public class HSelectionFragment extends BaseFragment {
         VolleySingleSimple.getInstance().addRequest(gsonRequsest);
 
         //下面listview的adapter
+        adapter = new HSelectionAdapter(context);
         initUrlData();
         VolleySingleSimple.getInstance().addRequest(lvRequsest);
 
 
         //第一个轮播图走的时候
         mHandler.sendEmptyMessage(1);
+
+        lvPullToRefresh();
+
+
+    }
+
+    private void lvPullToRefresh() {
+        lv.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> pullToRefreshBase) {
+
+
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> pullToRefreshBase) {
+
+
+
+                if (j >= 20) {
+                    j = j + 20;
+                }
+                String url = "http://api.liwushuo.com/v2/channels/108/items_v2?ad=2&gender=1&generation=1&limit=20&offset=" + j;
+                GsonRequest<HSelectionBean> request = new GsonRequest<HSelectionBean>(HSelectionBean.class,
+                        url, new Response.Listener<HSelectionBean>() {
+                    @Override
+                    public void onResponse(HSelectionBean response) {
+
+                        adapter.setArrayList(response, false);
+                        lv.onRefreshComplete();
+
+
+                        for (int i = 0; i < response.getData().getItems().size(); i++) {
+
+                            String url = response.getData().getItems().get(i).getUrl();
+
+                            arrayUrl.add(url);
+                        }
+
+
+                        lvClick();
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                        Toast.makeText(context, "网络不给力", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                initPullUpToRefresh();
+                pullToRefreshBase.onRefreshComplete();
+                VolleySingleSimple.getInstance().addRequest(request);
+            }
+
+
+        });
+
+    }
+
+    private void initPullUpToRefresh() {
 
     }
 
@@ -159,7 +229,7 @@ public class HSelectionFragment extends BaseFragment {
 //
 //                    lvBeenArrayList.add(bean);
 
-                HSelectionAdapter adapter = new HSelectionAdapter(context);
+
                 /*把解析下来的东西直接set给ArrayList*/
                 adapter.setArrayList(response);
                 lv.setAdapter(adapter);
@@ -184,6 +254,7 @@ public class HSelectionFragment extends BaseFragment {
             @Override
             public void onErrorResponse(VolleyError error) {
 
+
             }
         });
     }
@@ -193,7 +264,7 @@ public class HSelectionFragment extends BaseFragment {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String s = arrayUrl.get(position -1);
+                String s = arrayUrl.get(position - 1);
 
                 if (s != null && !"".equals(s)) {
                     Intent intent = new Intent(context, HomeDetailsActivity.class);
@@ -334,4 +405,12 @@ public class HSelectionFragment extends BaseFragment {
 
         }
     }
+
+//
+//    private class UpAsyncTask extends AsyncTask<String,String,Void>{
+//        @Override
+//        protected Void doInBackground(String... params) {
+//            return null;
+//        }
+//    }
 }

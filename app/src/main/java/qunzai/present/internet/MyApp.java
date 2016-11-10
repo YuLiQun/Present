@@ -3,6 +3,8 @@ package qunzai.present.internet;
 import android.app.Application;
 import android.content.Context;
 
+import cn.bmob.v3.Bmob;
+
 /**
  * Created by dllo on 16/10/24.
  */
@@ -27,6 +29,8 @@ public class MyApp extends Application {
     public void onCreate() {
         super.onCreate();
         mContext = this;
+        //这个得在Application 里初始化一下,,记得哦
+        Bmob.initialize(this, "ed0266817d5d3ef041ce5f6fa4a1eead");
     }
 
     //3.Context的get方法

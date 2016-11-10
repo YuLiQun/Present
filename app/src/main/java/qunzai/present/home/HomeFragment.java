@@ -76,9 +76,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private void rvClick() {
 
         popAdapter.setOnRecyclerItemClickListener(new OnRecyclerItemClickListener() {
+
             @Override
             public void onClick(int position) {
 
+                //点击跳转到对应的tablayout
+                vpHome.setCurrentItem(position,false);
 
                 if (pop.isShowing()){
                     pop.dismiss();

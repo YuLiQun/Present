@@ -28,8 +28,19 @@ public class HSelectionAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    //刷新
+    public void setArrayList(HSelectionBean bean,boolean isRefresh){
+        if(arrayList == null || isRefresh){
+            setArrayList(bean);
+        }else {
+            arrayList.getData().getItems().addAll(bean.getData().getItems());
+            notifyDataSetChanged();
+        }
+    }
+
     public HSelectionAdapter(Context context) {
         this.context = context;
+        notifyDataSetChanged();
     }
 
 

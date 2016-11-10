@@ -36,7 +36,7 @@ public class HPopAdapter extends RecyclerView.Adapter<CommonViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(final CommonViewHolder holder, int position) {
+    public void onBindViewHolder(final CommonViewHolder holder, final int position) {
         String name = arrayList.get(position);
 //        holder.setRBtnText(R.id.rbtn_home_pop,name).setItemClick(new View.OnClickListener() {
 //            @Override
@@ -48,14 +48,22 @@ public class HPopAdapter extends RecyclerView.Adapter<CommonViewHolder>{
 //            }
 //        });
 
-        holder.setRBtnText(R.id.rbtn_home_pop,name).setOnClickListener(new View.OnClickListener() {
+//        holder.setRBtnText(R.id.rbtn_home_pop,name).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //接口注册
+//                Log.d("sss", "position: + sss" + position);
+//                onRecyclerItemClickListener.onClick(position);
+//
+//            }
+//        });
+
+        holder.setViewCliad(R.id.rbtn_home_pop, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //接口注册
-                onRecyclerItemClickListener.onClick(holder.getLayoutPosition());
-
+                onRecyclerItemClickListener.onClick(position);
             }
-        });
+        }).setText(R.id.rbtn_home_pop,name);
 
     }
 

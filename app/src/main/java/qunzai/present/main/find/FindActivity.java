@@ -3,6 +3,7 @@ package qunzai.present.main.find;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -10,11 +11,14 @@ import android.widget.TextView;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import qunzai.present.R;
 import qunzai.present.base.BaseActivity;
 import qunzai.present.been.FindTitleBean;
+import qunzai.present.been.TestBean;
+import qunzai.present.database.LiteOrmSingleSimple;
 import qunzai.present.internet.GsonRequest;
 import qunzai.present.internet.MyURL;
 import qunzai.present.internet.VolleySingleSimple;
@@ -28,6 +32,10 @@ public class FindActivity extends BaseActivity implements View.OnClickListener {
     private ListView lv;
     private GridLayout gl;
     private View glView;
+    private EditText etFind;
+    private FindAdapter adapter;
+    private TestBean bean;
+    private ArrayList<TestBean> arrayList;
 
     @Override
     protected int getLayout() {
@@ -37,6 +45,7 @@ public class FindActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void initView() {
         tvFinish = bindView(R.id.tv_find);
+        etFind = bindView(R.id.et_find);
         View view = LayoutInflater.from(FindActivity.this).inflate(R.layout.item_lv_header_find,null);
 
         lv = bindView(R.id.lv_find);
@@ -50,14 +59,15 @@ public class FindActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void initData() {
-
+        arrayList = new ArrayList<>();
+        bean = new TestBean();
 
 
 
         initGson();
 
 
-        FindAdapter adapter = new FindAdapter();
+        adapter = new FindAdapter();
         lv.setAdapter(adapter);
     }
 
@@ -100,9 +110,32 @@ public class FindActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_find:
-                //调用手机的返回键
-                onBackPressed();
+                String content = etFind.getText().toString();
+                Log.d("sss","555"+ content);
+                bean.setData(content);
+                arrayList.add(bean);
+                Log.d("sss", "arrayList:1111" + arrayList);
+                LiteOrmSingleSimple.getInstance().instertData(arrayList);
                 break;
         }
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //TODO  明天继续
+        LiteOrmSingleSimple.getInstance().queryAllData(TestBean.class, new LiteOrmSingleSimple.OnQueryListenerAll<TestBean>() {
+            @Override
+            public void onQuery(List<TestBean> T) {
+                Log.d("sss", "T:" + T);
+                arrayList = (ArrayList<TestBean>) T;
+                Log.d("sss", "arrayList:222" + arrayList);
+                arrayList.add(bean);
+                adapter.setArrayList(arrayList);
+            }
+        });
+
     }
 }
