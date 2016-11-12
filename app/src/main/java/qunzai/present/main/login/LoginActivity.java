@@ -9,11 +9,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import qunzai.present.R;
 import qunzai.present.base.BaseActivity;
+import qunzai.present.been.TextEvent;
+import qunzai.present.mine.MineFragment;
 import qunzai.present.other.MyUser;
 
 /**
@@ -34,6 +40,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     protected void initView() {
+
+
+
         imgReturn = bindView(R.id.img_login_return);
         etNum = bindView(R.id.et_login_num);
         etPassword = bindView(R.id.et_login_password);
@@ -50,7 +59,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @Override
     protected void initData() {
 
-
     }
 
     @Override
@@ -60,7 +68,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 onBackPressed();
                 break;
             case R.id.btn_login:
-                String num = etNum.getText().toString();
+                final String num = etNum.getText().toString();
                 String password = etPassword.getText().toString();
 
                 MyUser myUser = new MyUser();
@@ -71,7 +79,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     public void done(MyUser myUser, BmobException e) {
                         if (e == null) {
                             Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-                            onBackPressed();
+                            /*EventBus*/
+                            TextEvent event = new TextEvent();
+                            event.setNum(num);
+                            /*这里注意一下,,postSticky,,粘性的*/
+                            EventBus.getDefault().postSticky(event);
+                            finish();
                         } else {
                             Log.d("MainActivity", e.getMessage());
                             Toast.makeText(LoginActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
@@ -87,4 +100,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 break;
         }
     }
+
+
+
+
+
+
+
+
 }

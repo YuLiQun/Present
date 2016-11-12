@@ -12,7 +12,9 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -24,7 +26,9 @@ import com.android.volley.VolleyError;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.List;
 
 import qunzai.present.R;
 import qunzai.present.base.BaseFragment;
@@ -35,14 +39,19 @@ import qunzai.present.home.wheel.HSWheelAdapter;
 import qunzai.present.been.HSWheelBean;
 import qunzai.present.internet.MyURL;
 import qunzai.present.internet.VolleySingleSimple;
+import qunzai.present.refresh.MeiTuanListView;
 
 /**
  * Created by dllo on 16/10/25.
  */
-public class HSelectionFragment extends BaseFragment {
+public class HSelectionFragment extends BaseFragment implements MeiTuanListView.OnMeiTuanRefreshListener{
 
-    private PullToRefreshListView lv;
-    //    String wheelUrl = "http://api.liwushuo.com/v2/banners";
+
+
+    private final static int REFRESH_COMPLETE = 0;
+    private MeiTuanListView lv;
+    private InterHandler mInterHandler = new InterHandler(this);
+
     private ArrayList<String> arrayList;
     private ArrayList<ImageView> imgArrayList;
     private ViewPager vpWheel;
@@ -63,7 +72,33 @@ public class HSelectionFragment extends BaseFragment {
     private int j = 20;
 
     private HSelectionAdapter adapter;
-    //    String url = "http://api.liwushuo.com/v2/channels/100/items_v2?ad=2&gender=1&generation=1&limit=20&offset=0";
+
+
+
+
+    /*刷新动画*/
+    private static class InterHandler extends Handler{
+        private WeakReference<HSelectionFragment> mActivity;
+        public InterHandler(HSelectionFragment activity){
+            mActivity = new WeakReference<HSelectionFragment>(activity);
+        }
+        @Override
+        public void handleMessage(Message msg) {
+            final HSelectionFragment activity = mActivity.get();
+            if (activity != null) {
+                switch (msg.what) {
+                    case REFRESH_COMPLETE:
+                        activity.lv.setOnRefreshComplete();
+                        activity.adapter.notifyDataSetChanged();
+                        activity.lv.setSelection(0);
+
+                        break;
+                }
+            }else{
+                super.handleMessage(msg);
+            }
+        }
+    }
 
     /**
      * 轮播图4.
@@ -106,7 +141,11 @@ public class HSelectionFragment extends BaseFragment {
         llWheel = bindView(view, R.id.ll_home_selection_wheel_point);
 
         //添加头布局
-        lv.getRefreshableView().addHeaderView(view);
+        lv.addHeaderView(view);
+        lv.setOnMeiTuanRefreshListener(this);
+
+
+
 
 
     }
@@ -128,65 +167,78 @@ public class HSelectionFragment extends BaseFragment {
         //第一个轮播图走的时候
         mHandler.sendEmptyMessage(1);
 
-        lvPullToRefresh();
+
+
+
+//        lv.setOnScrollListener(new AbsListView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(AbsListView view, int scrollState) {
+//
+//            }
+//
+//            @Override
+//            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+//
+//            }
+//        });
 
 
     }
 
-    private void lvPullToRefresh() {
-        lv.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-            @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ListView> pullToRefreshBase) {
-
-
-            }
-
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ListView> pullToRefreshBase) {
-
-
-
-                if (j >= 20) {
-                    j = j + 20;
-                }
-                String url = "http://api.liwushuo.com/v2/channels/108/items_v2?ad=2&gender=1&generation=1&limit=20&offset=" + j;
-                GsonRequest<HSelectionBean> request = new GsonRequest<HSelectionBean>(HSelectionBean.class,
-                        url, new Response.Listener<HSelectionBean>() {
-                    @Override
-                    public void onResponse(HSelectionBean response) {
-
-                        adapter.setArrayList(response, false);
-                        lv.onRefreshComplete();
-
-
-                        for (int i = 0; i < response.getData().getItems().size(); i++) {
-
-                            String url = response.getData().getItems().get(i).getUrl();
-
-                            arrayUrl.add(url);
-                        }
-
-
-                        lvClick();
-
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                        Toast.makeText(context, "网络不给力", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                initPullUpToRefresh();
-                pullToRefreshBase.onRefreshComplete();
-                VolleySingleSimple.getInstance().addRequest(request);
-            }
-
-
-        });
-
-    }
+//    private void lvPullToRefresh() {
+//        lv.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+//            @Override
+//            public void onPullDownToRefresh(PullToRefreshBase<ListView> pullToRefreshBase) {
+//
+//
+//            }
+//
+//            @Override
+//            public void onPullUpToRefresh(PullToRefreshBase<ListView> pullToRefreshBase) {
+//
+//
+//
+//                if (j >= 20) {
+//                    j = j + 20;
+//                }
+//                String url = "http://api.liwushuo.com/v2/channels/108/items_v2?ad=2&gender=1&generation=1&limit=20&offset=" + j;
+//                GsonRequest<HSelectionBean> request = new GsonRequest<HSelectionBean>(HSelectionBean.class,
+//                        url, new Response.Listener<HSelectionBean>() {
+//                    @Override
+//                    public void onResponse(HSelectionBean response) {
+//
+//                        adapter.setArrayList(response, false);
+//                        lv.onRefreshComplete();
+//
+//
+//                        for (int i = 0; i < response.getData().getItems().size(); i++) {
+//
+//                            String url = response.getData().getItems().get(i).getUrl();
+//
+//                            arrayUrl.add(url);
+//                        }
+//
+//
+//                        lvClick();
+//
+//                    }
+//                }, new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//
+//                        Toast.makeText(context, "网络不给力", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//
+//                initPullUpToRefresh();
+//                pullToRefreshBase.onRefreshComplete();
+//                VolleySingleSimple.getInstance().addRequest(request);
+//            }
+//
+//
+//        });
+//
+//    }
 
     private void initPullUpToRefresh() {
 
@@ -200,40 +252,12 @@ public class HSelectionFragment extends BaseFragment {
 
             @Override
             public void onResponse(HSelectionBean response) {
-//                int itemSize = response.getData().getItems().size();
-//
-//                lvBeenArrayList = new ArrayList<>();
-//                for (int i = 0; i < itemSize; i++) {
-//
-//                    String img = response.getData().getItems().get(i).getCover_image_url();
-//                    String title = response.getData().getItems().get(i).getTitle();
-//                    String share = response.getData().getItems().get(i).getShare_msg();
-//                    int licks = response.getData().getItems().get(i).getLikes_count();
-//                    Log.d("kkk", "licks:" + licks);
-//
-//                    HSelectionBean.DataBean.ItemsBean bean1 = new HSelectionBean.DataBean.ItemsBean();
-//                    bean1.setCover_image_url(img);
-//                    bean1.setTitle(title);
-//                    bean1.setShare_msg(share);
-//                    bean1.setLikes_count(licks);
-//
-//                    List<HSelectionBean.DataBean.ItemsBean> itemsBeenArr = new ArrayList<>();
-//                    itemsBeenArr.add(bean1);
-//
-//                    HSelectionBean.DataBean dataBean = new HSelectionBean.DataBean();
-//                    dataBean.setItems(itemsBeenArr);
-//
-//                    HSelectionBean bean = new HSelectionBean();
-//                    bean.setData(dataBean);
-//
-//
-//                    lvBeenArrayList.add(bean);
 
 
                 /*把解析下来的东西直接set给ArrayList*/
                 adapter.setArrayList(response);
                 lv.setAdapter(adapter);
-//                }
+
 
 
                 for (int i = 0; i < response.getData().getItems().size(); i++) {
@@ -264,7 +288,7 @@ public class HSelectionFragment extends BaseFragment {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String s = arrayUrl.get(position - 1);
+                String s = arrayUrl.get(position);
 
                 if (s != null && !"".equals(s)) {
                     Intent intent = new Intent(context, HomeDetailsActivity.class);
@@ -281,7 +305,7 @@ public class HSelectionFragment extends BaseFragment {
     private void initWheelUrlData() {
 
         //轮播点的半径
-//设置监听vp和小点一起懂
+        //设置监听vp和小点一起懂
         gsonRequsest = new GsonRequest<HSWheelBean>(
                 HSWheelBean.class, MyURL.HOME_WHEEL, new Response.Listener<HSWheelBean>() {
             @Override
@@ -406,11 +430,26 @@ public class HSelectionFragment extends BaseFragment {
         }
     }
 
-//
-//    private class UpAsyncTask extends AsyncTask<String,String,Void>{
-//        @Override
-//        protected Void doInBackground(String... params) {
-//            return null;
-//        }
-//    }
+
+
+
+    /*刷新动画*/
+    @Override
+    public void onRefresh() {
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(2000);
+                  //  mDatas.add(0, "new data");
+                    mInterHandler.sendEmptyMessage(REFRESH_COMPLETE);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+
 }

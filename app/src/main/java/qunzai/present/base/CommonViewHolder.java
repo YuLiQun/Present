@@ -114,10 +114,12 @@ public class CommonViewHolder extends RecyclerView.ViewHolder {
 
 
     //设置点击事件的监听
-    public CommonViewHolder setViewCliad(int id , View.OnClickListener listener){
+    public CommonViewHolder setViewClick(int id , View.OnClickListener listener){
         getView(id).setOnClickListener(listener);
         return this;
     }
+
+
 
 
     //行布局设置点击事件

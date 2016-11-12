@@ -53,7 +53,7 @@ public class SRaidersAdapter extends BaseAdapter{
             viewHolder.getView(R.id.tv_sort_one_all).setVisibility(View.VISIBLE);
             //TODO 这里不能finish ,,,嗯嗯
 //
-//            viewHolder.setViewCliad(R.id.tv_sort_one_all, new View.OnClickListener() {
+//            viewHolder.setViewClick(R.id.tv_sort_one_all, new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {
 //                    Intent intent = new Intent(parent.getContext(),SOAllActivity.class);

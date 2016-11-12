@@ -6,10 +6,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import qunzai.present.R;
 import qunzai.present.base.CommonViewHolder;
 import qunzai.present.been.TestBean;
+import qunzai.present.database.LiteOrmSingleSimple;
 
 import static qunzai.present.R.id.*;
 
@@ -17,17 +19,17 @@ import static qunzai.present.R.id.*;
  * Created by dllo on 16/11/4.
  */
 public class FindAdapter extends BaseAdapter {
-    private ArrayList<TestBean> arrayList;
+    private List<TestBean> arrayList;
 
-    public void setArrayList(ArrayList<TestBean> arrayList) {
+    public void setArrayList(List<TestBean> arrayList) {
         this.arrayList = arrayList;
         notifyDataSetChanged();
-        Log.d("sss", "arrayList:" + arrayList);
+
     }
 
     @Override
     public int getCount() {
-        return arrayList== null ? 0 :arrayList.size();
+        return arrayList == null ? 0 : arrayList.size();
     }
 
     @Override
@@ -41,9 +43,24 @@ public class FindAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        CommonViewHolder viewHolder = CommonViewHolder.getViewHolder(convertView,parent, R.layout.item_find);
-        viewHolder.setText(tv_find_item_data,arrayList.get(position).getData());
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        CommonViewHolder viewHolder = CommonViewHolder.getViewHolder(convertView, parent, R.layout.item_find);
+        viewHolder.setText(tv_find_item_data, arrayList.get(position).getData());
+        viewHolder.setViewClick(R.id.img_find_close, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                LiteOrmSingleSimple.getInstance().deleteSpecifyData(arrayList.get(position).getData());
+
+                arrayList.remove(position);
+
+                notifyDataSetChanged();
+            }
+
+        });
+
+
+
         return viewHolder.getItemView();
     }
 }

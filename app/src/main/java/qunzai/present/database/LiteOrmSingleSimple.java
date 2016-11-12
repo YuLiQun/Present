@@ -2,14 +2,17 @@ package qunzai.present.database;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import com.litesuits.orm.LiteOrm;
+import com.litesuits.orm.db.assit.WhereBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+import qunzai.present.been.TestBean;
 import qunzai.present.internet.MyApp;
 
 /**
@@ -33,6 +36,36 @@ public class LiteOrmSingleSimple {
         /*newFixedThreadPool 任务队列是无限的*/
         mExcutorPool = Executors.newFixedThreadPool(cpuMore + 1);
     }
+
+
+
+
+   //LiteOrm 删除数据库全删方法
+
+    public void deleteAllData() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mLiteOrm.delete(TestBean.class);
+                // mLiteOrm.deleteDatabase();  //库文件一起干掉
+                // mLiteOrm.openOrCreateDatabase();  //重建一个数据库
+                // 这个方法当库里只有一个表的时候可以用但是如果表多的话会全删光的
+            }
+        }).start();
+    }
+
+    //LiteOrm 删除数据库定向删方法
+    public void deleteSpecifyData(final String data){
+        mExcutorPool.execute(new Runnable() {
+            @Override
+            public void run() {
+                mLiteOrm.delete(new WhereBuilder(TestBean.class).where("data = ?",data));
+            }
+        });
+    }
+
+
+
 
     //3.
     public static LiteOrmSingleSimple getInstance() {
@@ -60,9 +93,20 @@ public class LiteOrmSingleSimple {
 
     }
 
+    public <T> void insertData(final T t){
+        mExcutorPool.execute(new Runnable() {
+            @Override
+            public void run() {
+                //insertDB(t);
+                mLiteOrm.insert(t);
+            }
+        });
+    }
+
     /*LiteOrm */
-    private <T> void insertDB(List<T> T) {
-        mLiteOrm.insert(T);
+    private <T> void insertDB(List<T> t) {
+        Log.d("cccc", "t.size():" + t.size());
+        mLiteOrm.insert(t);
     }
 
     /*LiteOrm 的查询数据方法*/

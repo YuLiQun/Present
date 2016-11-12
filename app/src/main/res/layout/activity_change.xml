@@ -3,7 +3,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -27,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:text="请登录"
                 android:textSize="22dp"
-                android:id="@+id/tv_mine_username"
+                android:id="@+id/tv_change_username"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/img_mine_girl"
                 android:layout_marginTop="75dp"
@@ -180,30 +179,14 @@
             android:layout_height="wrap_content"
             android:id="@+id/fl_mine_landing">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@mipmap/fav_me_blank"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:id="@+id/img_mine_cz"
-                />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="登录以享受更多功能"
-                android:id="@+id/tv_mine_cz"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/img_mine_cz"
-                android:layout_marginTop="35dp"
-                android:textColor="#cccccc"/>
 
         </RelativeLayout>
 
 
 
     </LinearLayout>
+
 
 
 </RelativeLayout>

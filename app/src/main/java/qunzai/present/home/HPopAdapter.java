@@ -1,8 +1,6 @@
 package qunzai.present.home;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -10,7 +8,6 @@ import java.util.ArrayList;
 
 import qunzai.present.R;
 import qunzai.present.base.CommonViewHolder;
-import qunzai.present.been.HomeTitleBean;
 
 /**
  * Created by dllo on 16/11/3.
@@ -58,7 +55,7 @@ public class HPopAdapter extends RecyclerView.Adapter<CommonViewHolder>{
 //            }
 //        });
 
-        holder.setViewCliad(R.id.rbtn_home_pop, new View.OnClickListener() {
+        holder.setViewClick(R.id.rbtn_home_pop, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onRecyclerItemClickListener.onClick(position);

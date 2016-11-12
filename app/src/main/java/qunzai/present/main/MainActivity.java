@@ -27,6 +27,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void initView() {
+
         rbtnHome = bindView(R.id.rbtn_home);
         rbtnHotSale = bindView(R.id.rbtn_hotsale);
         rbtnSort = bindView(R.id.rbtn_sort);

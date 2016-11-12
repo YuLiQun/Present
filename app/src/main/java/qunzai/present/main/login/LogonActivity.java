@@ -6,6 +6,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.greenrobot.eventbus.EventBus;
+
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
@@ -61,7 +63,6 @@ public class LogonActivity extends BaseActivity {
 
                         } else {
                             Toast.makeText(LogonActivity.this, "已经注册完成", Toast.LENGTH_SHORT).show();
-                            Log.d("qqq", e.getMessage());//组册失败的原因
                         }
                     }
                 });//判断注册是否成功
@@ -71,5 +72,12 @@ public class LogonActivity extends BaseActivity {
         });
 
 
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }
