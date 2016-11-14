@@ -1,6 +1,7 @@
 package qunzai.present.main.find;
 
 import android.content.Intent;
+import android.webkit.WebView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +21,8 @@ import qunzai.present.other.OnEventbusChangeListener;
 /*EventBus*/
 public class FindShowActivity extends BaseActivity {
 
-    private TextView tvShow;
+
+    private WebView web;
 
     @Override
     protected int getLayout() {
@@ -29,7 +31,7 @@ public class FindShowActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        tvShow = bindView(R.id.tv_findshow);
+        web = bindView(R.id.web_find);
 
     }
 
@@ -37,7 +39,12 @@ public class FindShowActivity extends BaseActivity {
     protected void initData() {
         Intent intent = getIntent();
         String data = intent.getStringExtra("cont");
-        tvShow.setText(data);
+
+
+        web.getSettings().setUseWideViewPort(true);
+        web.getSettings().setLoadWithOverviewMode(true);
+        web.getSettings().setJavaScriptEnabled(true);
+        web.loadUrl(data);
 
     }
 

@@ -98,7 +98,6 @@ public class MineFragment extends BaseFragment {
     public void getTextEvent(TextEvent event) {
         s = event.getNum();
         tvUserName.setText(s);
-
         tvCz.setVisibility(View.INVISIBLE);
         imgCz.setVisibility(View.INVISIBLE);
     }

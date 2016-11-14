@@ -2,7 +2,6 @@ package qunzai.present.home.homeselection;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -11,24 +10,19 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.List;
 
 import qunzai.present.R;
 import qunzai.present.base.BaseFragment;
@@ -44,7 +38,7 @@ import qunzai.present.refresh.MeiTuanListView;
 /**
  * Created by dllo on 16/10/25.
  */
-public class HSelectionFragment extends BaseFragment implements MeiTuanListView.OnMeiTuanRefreshListener{
+public class HSelectionFragment extends BaseFragment implements MeiTuanListView.OnMeiTuanRefreshListener {
 
 
 
@@ -72,6 +66,7 @@ public class HSelectionFragment extends BaseFragment implements MeiTuanListView.
     private int j = 20;
 
     private HSelectionAdapter adapter;
+    private LinearLayout ll;
 
 
 
@@ -132,7 +127,9 @@ public class HSelectionFragment extends BaseFragment implements MeiTuanListView.
 
     @Override
     protected void initView() {
+        ll = bindView(R.id.ll_home_selection_touch);
         lv = bindView(R.id.lv_home_selection);
+
 
         //填充一个
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.home_selection_wheel, null);
@@ -143,6 +140,7 @@ public class HSelectionFragment extends BaseFragment implements MeiTuanListView.
         //添加头布局
         lv.addHeaderView(view);
         lv.setOnMeiTuanRefreshListener(this);
+
 
 
 
@@ -168,20 +166,71 @@ public class HSelectionFragment extends BaseFragment implements MeiTuanListView.
         mHandler.sendEmptyMessage(1);
 
 
+    }
 
-
-//        lv.setOnScrollListener(new AbsListView.OnScrollListener() {
+//    private void initLlTouch() {
+//        ll.setOnTouchListener(new View.OnTouchListener() {
 //            @Override
-//            public void onScrollStateChanged(AbsListView view, int scrollState) {
+//            public boolean onTouch(View v, MotionEvent event) {
+//                switch (event.getAction()) {
+//                    case MotionEvent.ACTION_DOWN://单点触摸离开动作
+//                        Log.d("zzz", "离开");
+//                        break;
+//                    case MotionEvent.ACTION_UP://但单点触摸动作
+//                        Log.d("zzz", "触摸");
+//                        break;
+//                    case MotionEvent.ACTION_MOVE://触摸点移动的动作
+//                        Log.d("zzz", "移动");
+//                        initGsonLoading();
+//                        break;
+//                }
 //
+//
+//                return true;
 //            }
 //
-//            @Override
-//            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 //
-//            }
 //        });
+//    }
 
+    private void initGsonLoading() {
+
+
+        if (j >= 20) {
+            j = j + 20;
+        }
+        String url = "http://api.liwushuo.com/v2/channels/108/items_v2?ad=2&gender=1&generation=1&limit=20&offset=" + j;
+        GsonRequest<HSelectionBean> request = new GsonRequest<HSelectionBean>(HSelectionBean.class,
+                url, new Response.Listener<HSelectionBean>() {
+            @Override
+            public void onResponse(HSelectionBean response) {
+
+                adapter.setArrayList(response, false);
+
+
+
+
+
+                for (int i = 0; i < response.getData().getItems().size(); i++) {
+
+                    String url = response.getData().getItems().get(i).getUrl();
+
+                    arrayUrl.add(url);
+                }
+
+
+                lvClick();
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(context, "网络不给力", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        VolleySingleSimple.getInstance().addRequest(request);
 
     }
 
@@ -240,9 +289,7 @@ public class HSelectionFragment extends BaseFragment implements MeiTuanListView.
 //
 //    }
 
-    private void initPullUpToRefresh() {
 
-    }
 
     private void initUrlData() {
 

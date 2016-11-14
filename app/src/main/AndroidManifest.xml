@@ -69,6 +69,10 @@
         <activity android:name=".main.find.FindShowActivity"
             android:theme="@style/CustomTitle"
             >
+        </activity>
+        <activity android:name=".main.find.FindWebActivity"
+            android:theme="@style/CustomTitle"
+            >
 
         </activity>
 

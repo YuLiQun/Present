@@ -1,35 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="40dp"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="#f9f5f4">
 
-    <EditText
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal">
 
-        android:layout_width="0dp"
-        android:layout_weight="6"
+
+        <EditText
+
+            android:layout_width="0dp"
+            android:layout_weight="6"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:id="@+id/et_find"
+            android:gravity="center_vertical"
+            android:hint="选份走心的好礼送给Ta"
+            android:drawableLeft="@mipmap/bg_editor_search"
+            android:background="@drawable/find_include"/>
+
+
+        <TextView
+
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="10dp"
+            android:textSize="15dp"
+            android:textColor="#4d4b4b"
+            android:layout_gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_find"
+            android:text="搜索"/>
+
+
+    </LinearLayout>
+
+
+    <ListView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
-        android:id="@+id/et_find"
-        android:gravity="center_vertical"
-        android:hint="选份走心的好礼送给Ta"
-        android:drawableLeft="@mipmap/bg_editor_search"
-        android:background="@drawable/find_include"/>
+        android:id="@+id/lv_find_content"
+        android:visibility="invisible"
+        >
 
-
-    <TextView
-
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="10dp"
-        android:textSize="15dp"
-        android:textColor="#4d4b4b"
-        android:layout_gravity="center"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_find"
-        android:text="搜索"/>
+    </ListView>
 
 
 

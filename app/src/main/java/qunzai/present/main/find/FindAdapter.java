@@ -60,7 +60,6 @@ public class FindAdapter extends BaseAdapter {
         });
 
 
-
         return viewHolder.getItemView();
     }
 }
