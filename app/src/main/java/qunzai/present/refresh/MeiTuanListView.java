@@ -47,6 +47,8 @@ public class MeiTuanListView extends ListView implements AbsListView.OnScrollLis
 	private AnimationDrawable secondAnim;
 	private MeiTuanRefreshThirdStepView mThirdView;
 	private AnimationDrawable thirdAnim;
+	private boolean isLoad;//封神写的
+	private OnLoadListener onLoadListener;//封神写的
 
 	public MeiTuanListView(Context context) {
 		super(context);
@@ -63,8 +65,14 @@ public class MeiTuanListView extends ListView implements AbsListView.OnScrollLis
 		init(context);
 	}
 
+
+
 	public interface OnMeiTuanRefreshListener{
 		void onRefresh();
+	}
+	//封神写的
+	public void setOnLoadListener(OnLoadListener onLoadListener) {
+		this.onLoadListener = onLoadListener;
 	}
 
 	/**
@@ -88,6 +96,7 @@ public class MeiTuanListView extends ListView implements AbsListView.OnScrollLis
 	}
 
 	private void init(Context context) {
+		isLoad = false;
 		setOverScrollMode(View.OVER_SCROLL_NEVER);
 		setOnScrollListener(this);
 		
@@ -120,7 +129,25 @@ public class MeiTuanListView extends ListView implements AbsListView.OnScrollLis
 	@Override
 	public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 		mFirstVisibleItem = firstVisibleItem;
+		//封神写的
+		if (this.getAdapter() == null) {//this.getAdapter(),,可以get到系统listView的adapter
+			return;
+		}
+		if (firstVisibleItem + visibleItemCount >= this.getAdapter().getCount() - 1 && !isLoad && onLoadListener != null) {
+
+			Log.d("sss", "firstVisibleItem+visibleItemCount:" + (firstVisibleItem + visibleItemCount));
+			Log.d("sss", "this.getAdapter().getCount() -1:" + (this.getAdapter().getCount() - 1));
+			isLoad = true;
+			onLoadListener.onLoad();//一个接口,,着里面可以写加载数据的方法
+
+		}
 	}
+
+	//封神写的
+	public void setLoadComplite(){
+		isLoad = false;
+	}
+
 
 	@Override
 	public boolean onTouchEvent(MotionEvent ev) {
@@ -237,7 +264,6 @@ public class MeiTuanListView extends ListView implements AbsListView.OnScrollLis
 						state = REFRESHING;
 						//回调接口的onRefresh方法
 						mOnRefreshListener.onRefresh();
-//						mOnRefreshListener.onRefresh();
 						//根据状态改变headerView
 						changeHeaderByState(state);
 					}
@@ -336,6 +362,11 @@ public class MeiTuanListView extends ListView implements AbsListView.OnScrollLis
 					MeasureSpec.UNSPECIFIED);
 		}
 		child.measure(childWidthSpec, childHeightSpec);
+	}
+
+	//封神写的,,接口
+	public interface OnLoadListener {
+		void onLoad();
 	}
 
 

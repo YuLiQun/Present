@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -35,13 +36,14 @@ import qunzai.present.internet.MyURL;
 import qunzai.present.internet.VolleySingleSimple;
 import qunzai.present.refresh.MeiTuanListView;
 
+
 /**
  * Created by dllo on 16/10/25.
  */
-public class HSelectionFragment extends BaseFragment implements MeiTuanListView.OnMeiTuanRefreshListener {
+public class HSelectionFragment extends BaseFragment implements MeiTuanListView.OnMeiTuanRefreshListener, MeiTuanListView.OnLoadListener {
 
-
-
+    /*刷新的方法是美团listView,,
+    * 加载是用OnScrollListener,,但是这个监听和美团listView重复了,,,所一可以在美团listView里写*/
     private final static int REFRESH_COMPLETE = 0;
     private MeiTuanListView lv;
     private InterHandler mInterHandler = new InterHandler(this);
@@ -62,34 +64,43 @@ public class HSelectionFragment extends BaseFragment implements MeiTuanListView.
     private GsonRequest<HSWheelBean> gsonRequsest;
     private GsonRequest<HSelectionBean> lvRequsest;
     private ArrayList<HSelectionBean> lvBeenArrayList;
-    private int currItem;
     private int j = 20;
 
     private HSelectionAdapter adapter;
     private LinearLayout ll;
 
+    private boolean canLoad = true;
 
+    @Override
+    public void onLoad() {
+        initGsonLoading();
+        lv.setLoadComplite();//网络加载,,如果没有加载完的话,,就酱
+    }
 
 
     /*刷新动画*/
-    private static class InterHandler extends Handler{
+    private static class InterHandler extends Handler {
         private WeakReference<HSelectionFragment> mActivity;
-        public InterHandler(HSelectionFragment activity){
+
+        public InterHandler(HSelectionFragment activity) {
             mActivity = new WeakReference<HSelectionFragment>(activity);
         }
+
         @Override
         public void handleMessage(Message msg) {
             final HSelectionFragment activity = mActivity.get();
             if (activity != null) {
                 switch (msg.what) {
                     case REFRESH_COMPLETE:
+//                        activity.initData();
                         activity.lv.setOnRefreshComplete();
                         activity.adapter.notifyDataSetChanged();
                         activity.lv.setSelection(0);
 
+
                         break;
                 }
-            }else{
+            } else {
                 super.handleMessage(msg);
             }
         }
@@ -124,30 +135,30 @@ public class HSelectionFragment extends BaseFragment implements MeiTuanListView.
         return R.layout.fragment_home_selection;
     }
 
-
     @Override
     protected void initView() {
         ll = bindView(R.id.ll_home_selection_touch);
         lv = bindView(R.id.lv_home_selection);
 
-
-        //填充一个
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.home_selection_wheel, null);
+        //填充一个头布局
+        View view = LayoutInflater.from(mContext).inflate(R.layout.home_selection_wheel, null);
         vpWheel = bindView(view, R.id.vp_home_selection_wheel);
         tvWheelTitle = bindView(view, R.id.tv_home_selection_wheel_title);
         llWheel = bindView(view, R.id.ll_home_selection_wheel_point);
 
+        //填充一个脚布局
+        View viewFoot = LayoutInflater.from(mContext).inflate(R.layout.home_selection_foot, null);
+        TextView tvFoot = bindView(R.id.tv_home_selection_foot);
+
         //添加头布局
         lv.addHeaderView(view);
+
         lv.setOnMeiTuanRefreshListener(this);
-
-
-
-
-
+        //监听器在ListView滚动时触发，
+      //  lv.setOnScrollListener(this);
+        lv.setOnLoadListener(this);
 
     }
-
 
     @Override
     protected void initData() {
@@ -168,64 +179,53 @@ public class HSelectionFragment extends BaseFragment implements MeiTuanListView.
 
     }
 
-//    private void initLlTouch() {
-//        ll.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                switch (event.getAction()) {
-//                    case MotionEvent.ACTION_DOWN://单点触摸离开动作
-//                        Log.d("zzz", "离开");
-//                        break;
-//                    case MotionEvent.ACTION_UP://但单点触摸动作
-//                        Log.d("zzz", "触摸");
-//                        break;
-//                    case MotionEvent.ACTION_MOVE://触摸点移动的动作
-//                        Log.d("zzz", "移动");
-//                        initGsonLoading();
-//                        break;
-//                }
+//    //监听器在ListView滚动时触发，
+//    @Override
+//    public void onScrollStateChanged(AbsListView view, int scrollState) {
 //
 //
-//                return true;
-//            }
+//    }
+//
+//    ////监听器在ListView滚动时触发，
+//    @Override
+//    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+//        if (adapter == null) {
+//            return;
+//        }
+//        if (firstVisibleItem + visibleItemCount >= adapter.getCount() - 1 && canLoad) {
+//           // initGsonLoading();
+//
+//        }
 //
 //
-//        });
 //    }
 
     private void initGsonLoading() {
-
-
+        canLoad = false;
         if (j >= 20) {
             j = j + 20;
         }
-        String url = "http://api.liwushuo.com/v2/channels/108/items_v2?ad=2&gender=1&generation=1&limit=20&offset=" + j;
+        final String url = "http://api.liwushuo.com/v2/channels/108/items_v2?ad=2&gender=1&generation=1&limit=20&offset=" + j;
         GsonRequest<HSelectionBean> request = new GsonRequest<HSelectionBean>(HSelectionBean.class,
                 url, new Response.Listener<HSelectionBean>() {
             @Override
             public void onResponse(HSelectionBean response) {
-
+                Log.d("zzz", "j:" + j);
+                Log.d("zzz", url);
                 adapter.setArrayList(response, false);
 
-
-
-
+                canLoad = true;
 
                 for (int i = 0; i < response.getData().getItems().size(); i++) {
-
                     String url = response.getData().getItems().get(i).getUrl();
-
                     arrayUrl.add(url);
                 }
-
-
                 lvClick();
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
                 Toast.makeText(context, "网络不给力", Toast.LENGTH_SHORT).show();
             }
         });
@@ -290,7 +290,6 @@ public class HSelectionFragment extends BaseFragment implements MeiTuanListView.
 //    }
 
 
-
     private void initUrlData() {
 
         lvRequsest = new GsonRequest<HSelectionBean>(HSelectionBean.class,
@@ -304,7 +303,6 @@ public class HSelectionFragment extends BaseFragment implements MeiTuanListView.
                 /*把解析下来的东西直接set给ArrayList*/
                 adapter.setArrayList(response);
                 lv.setAdapter(adapter);
-
 
 
                 for (int i = 0; i < response.getData().getItems().size(); i++) {
@@ -335,7 +333,7 @@ public class HSelectionFragment extends BaseFragment implements MeiTuanListView.
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String s = arrayUrl.get(position);
+                String s = arrayUrl.get(position - 2);
 
                 if (s != null && !"".equals(s)) {
                     Intent intent = new Intent(context, HomeDetailsActivity.class);
@@ -477,9 +475,6 @@ public class HSelectionFragment extends BaseFragment implements MeiTuanListView.
         }
     }
 
-
-
-
     /*刷新动画*/
     @Override
     public void onRefresh() {
@@ -489,7 +484,7 @@ public class HSelectionFragment extends BaseFragment implements MeiTuanListView.
             public void run() {
                 try {
                     Thread.sleep(2000);
-                  //  mDatas.add(0, "new data");
+                    //  mDatas.add(0, "new data");
                     mInterHandler.sendEmptyMessage(REFRESH_COMPLETE);
                 } catch (InterruptedException e) {
                     e.printStackTrace();

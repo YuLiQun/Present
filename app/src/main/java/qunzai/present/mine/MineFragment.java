@@ -22,7 +22,7 @@ import qunzai.present.main.settimgs.SettingsActivity;
 /**
  * Created by dllo on 16/10/21.
  */
-public class MineFragment extends BaseFragment {
+public class MineFragment extends BaseFragment implements View.OnClickListener {
 
 
     private RelativeLayout flLanding;
@@ -47,6 +47,9 @@ public class MineFragment extends BaseFragment {
         imgCz = bindView(R.id.img_mine_cz);
         tvCz = bindView(R.id.tv_mine_cz);
 
+        imgSettings.setOnClickListener(this);
+        imgGirl.setOnClickListener(this);
+        flLanding.setOnClickListener(this);
 
 
     }
@@ -100,5 +103,25 @@ public class MineFragment extends BaseFragment {
         tvUserName.setText(s);
         tvCz.setVisibility(View.INVISIBLE);
         imgCz.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void onClick(View v) {
+        //点击跳转到登录界面
+        Intent intent = new Intent(getActivity(), SettingsActivity.class);
+        switch (v.getId()) {
+            case R.id.img_mine_settings:
+
+                startActivity(intent);
+                break;
+            case R.id.img_mine_girl:
+
+                startActivity(intent);
+                break;
+            case R.id.fl_mine_landing:
+                Intent intent1 = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent1);
+                break;
+        }
     }
 }

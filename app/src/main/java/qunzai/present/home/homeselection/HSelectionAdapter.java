@@ -23,6 +23,15 @@ public class HSelectionAdapter extends BaseAdapter {
     private HSelectionBean arrayList;
 
 
+    /*选中这个position*/
+    private int selectedPos = 0;
+
+    /**自定义一个方法*/
+    public void setSelectdPos(int selectedPos) {
+        this.selectedPos = selectedPos;
+        notifyDataSetChanged();
+    }
+
     public void setArrayList(HSelectionBean arrayList) {
         this.arrayList = arrayList;
         notifyDataSetChanged();
