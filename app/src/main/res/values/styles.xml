@@ -21,4 +21,14 @@
     </style>
 
 
+    <!--popWindow主题-->
+    <style name="pop_anim_style">
+        <item name="android:windowEnterAnimation">@anim/pop_show</item>
+        <!-- 指定显示时的动画xml -->
+        <item name="android:windowExitAnimation">@anim/pop_gone</item>
+        <!-- 指定消失时的动画xml -->
+    </style>
+
+
+
 </resources>

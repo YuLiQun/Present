@@ -77,7 +77,6 @@ public class HSelectionFragment extends BaseFragment implements MeiTuanListView.
         lv.setLoadComplite();//网络加载,,如果没有加载完的话,,就酱
     }
 
-
     /*刷新动画*/
     private static class InterHandler extends Handler {
         private WeakReference<HSelectionFragment> mActivity;

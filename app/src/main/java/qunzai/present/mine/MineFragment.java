@@ -54,45 +54,11 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     }
 
-    private void imgSettingsClick() {
-        imgSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SettingsActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
-
-    private void imgGirlClick() {
-        imgGirl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
-
-    private void flLandingClick() {
-        flLanding.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
 
 
     @Override
     protected void initData() {
 
-        //点击跳转到登录界面
-        flLandingClick();
-        imgGirlClick();
-        //点击跳转到设置界面
-        imgSettingsClick();
 
     }
 
@@ -107,19 +73,21 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        //点击跳转到登录界面
-        Intent intent = new Intent(getActivity(), SettingsActivity.class);
+        //点击跳转到设置界面
+        Intent intent1 = new Intent(getActivity(), LoginActivity.class);
         switch (v.getId()) {
-            case R.id.img_mine_settings:
 
+            case R.id.img_mine_settings:
+                //点击跳转到登录界面
+                Intent intent = new Intent(getActivity(), SettingsActivity.class);
                 startActivity(intent);
                 break;
             case R.id.img_mine_girl:
 
-                startActivity(intent);
+                startActivity(intent1);
                 break;
             case R.id.fl_mine_landing:
-                Intent intent1 = new Intent(getActivity(), LoginActivity.class);
+
                 startActivity(intent1);
                 break;
         }
