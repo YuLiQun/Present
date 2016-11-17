@@ -13,9 +13,16 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.HashMap;
+
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.PlatformDb;
+import cn.sharesdk.framework.ShareSDK;
+import cn.sharesdk.tencent.qq.QQ;
 import qunzai.present.R;
 import qunzai.present.base.BaseActivity;
 import qunzai.present.been.TextEvent;
@@ -32,6 +39,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private EditText etPassword;
     private Button btnLogin;
     private TextView tvLogon;
+    private ImageView qq;
+    public static final int RESULT = 0;
 
     @Override
     protected int getLayout() {
@@ -48,10 +57,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         etPassword = bindView(R.id.et_login_password);
         btnLogin = bindView(R.id.btn_login);
         tvLogon = bindView(R.id.tv_login_logon);
+        qq = bindView(R.id.qq);
 
         imgReturn.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
         tvLogon.setOnClickListener(this);
+        qq.setOnClickListener(this);
 
 
     }
@@ -97,6 +108,33 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             case R.id.tv_login_logon:
                 Intent intent = new Intent(this, LogonActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.qq://点击qq登陆
+                Platform qq = ShareSDK.getPlatform(QQ.NAME);
+                qq.authorize();
+                qq.setPlatformActionListener(new PlatformActionListener() {
+                    @Override
+                    public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
+                        PlatformDb platformDb = platform.getDb();
+                        String name = platformDb.getUserName();
+                        String icon = platformDb.getUserIcon();
+                        Intent intent = new Intent();
+                        intent.putExtra("name", name);
+                        intent.putExtra("icon", icon);
+                        setResult(RESULT, intent);
+                        finish();
+                    }
+
+                    @Override
+                    public void onError(Platform platform, int i, Throwable throwable) {
+
+                    }
+
+                    @Override
+                    public void onCancel(Platform platform, int i) {
+
+                    }
+                });
                 break;
         }
     }

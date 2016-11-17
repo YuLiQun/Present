@@ -189,9 +189,10 @@ public class FindActivity extends BaseActivity implements View.OnClickListener {
 
 
                 String data = arrayListdatabase.get(position).getData();
-                Intent intent = new Intent(FindActivity.this, FindShowActivity.class);
-                intent.putExtra("cont", data);
-                startActivity(intent);
+//                Intent intent = new Intent(FindActivity.this, FindShowActivity.class);
+//                intent.putExtra("cont", data);
+//                startActivity(intent);
+
 
             }
         });
